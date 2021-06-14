@@ -17,7 +17,7 @@ public class EmployeeDAO {
 	static String jdbcUrl;
 	static Connection conn;
 	String sql;
-	PreparedStatement pstmt; // sql을 전달할때
+	PreparedStatement pstmt; // sql�쓣 �쟾�떖�븷�븣
 	Integer result;
 	ResultSet rs;
 
@@ -35,10 +35,80 @@ public class EmployeeDAO {
 			e.printStackTrace();
 		}
 	}
-
+	public void empDelete(String empId)
+	{
+		sql=" delete from employees "
+				+" where employee_id = ?";
+		getConnect();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, empId);
+			int i=pstmt.executeUpdate();
+			System.out.println(i+"개가 삭제되었습니다.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+	}
+	public void empUpdate(EmployeeDTO dto)
+	{
+		sql="update employees "
+				+" set JOB_ID =? , PH_NUMBER=? , OFFICE_NUMBER=?, EMAIL=?,"
+				+ " EMP_ADDRESS=? "
+				+"where employee_id=? ";
+		getConnect();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getJobId());
+			pstmt.setString(2, dto.getPhNumber());
+			pstmt.setString(3, dto.getOfficeNumber());
+			pstmt.setString(4, dto.getEmail());
+			pstmt.setString(5, dto.getEmpAddress());
+			pstmt.setString(6, dto.getEmployeeId());
+			int i= pstmt.executeUpdate();
+			System.out.println(i+"개가 수정 되었습니다.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+	}
+public EmployeeDTO empInfo(String empId) {
+	EmployeeDTO dto= new EmployeeDTO();
+	sql="select "+COLUMNS+" from employees"
+	+" where employee_Id =?";
+	getConnect();
+	try {
+		pstmt=conn.prepareStatement(sql);
+		pstmt.setString(1, empId);
+		rs=pstmt.executeQuery();
+		if(rs.next())
+		{
+			dto.setEmployeeId(rs.getString("EMPLOYEE_ID"));
+			dto.setEmpUserid(rs.getString("EMP_USERID"));
+			dto.setEmpPw(rs.getString("EMP_PW"));
+			dto.setEmpName(rs.getString("EMP_NAME"));
+			dto.setHireDate(rs.getString("HIRE_DATE"));
+			dto.setJobId(rs.getString("JOB_ID"));
+			dto.setPhNumber(rs.getString("PH_NUMBER"));
+			dto.setOfficeNumber(rs.getString("OFFICE_NUMBER"));
+			dto.setEmail(rs.getString("EMAIL"));
+			dto.setEmpAddress(rs.getString("EMP_ADDRESS"));
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close();
+	}
+	
+	
+	return dto;
+}
 	public List<EmployeeDTO> getEmpList() {
 		List<EmployeeDTO> list = new ArrayList<EmployeeDTO>();
-		sql = "select " + COLUMNS + " from employee";
+		sql = "select " + COLUMNS + " from employees";
 		getConnect();
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -68,7 +138,7 @@ public class EmployeeDAO {
 	public int getEmpNo() {
 		getConnect();
 
-		sql = "select nvl(max(employee_id),10000)+1 from  employee";
+		sql = "select nvl(max(employee_id),10000)+1 from employees";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -85,7 +155,7 @@ public class EmployeeDAO {
 	}
 
 	public void empInsert(EmployeeDTO dto) {
-		sql = "insert into employee(" + COLUMNS + ") values(?,?,?,?,?,?,?,?,?,?)";
+		sql = "insert into employees(" + COLUMNS + ") values(?,?,?,?,?,?,?,?,?,?)";
 		getConnect();
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -100,7 +170,7 @@ public class EmployeeDAO {
 			pstmt.setString(9, dto.getEmail());
 			pstmt.setString(10, dto.getEmpAddress());
 			result = pstmt.executeUpdate();
-			System.out.println(result + "개행이 저장되었습니다.");
+			System.out.println(result + "등록됐습니다.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
