@@ -42,5 +42,20 @@
 
 
 	<a href="empList.em">직원리스트</a>
+	<a href="memList.mem">회원원리스트</a>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </body>
 </html>
