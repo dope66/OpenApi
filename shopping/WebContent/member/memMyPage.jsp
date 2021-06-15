@@ -4,12 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>agree.jsp</title>
+<title>Insert title here</title>
 </head>
 <body>
-<form action="memRegist.mem" method="post">
-	<input type="checkbox" required="required">동의<br />
-	<input type="submit" value="다음" />
-</form>
+<a href="memDetail.mem" >회원정보</a> | 비밀번호 변경 | 회원탈퇴
 </body>
 </html>
