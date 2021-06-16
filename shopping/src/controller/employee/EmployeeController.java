@@ -63,9 +63,13 @@ public class EmployeeController extends HttpServlet implements Servlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("employee/employeeInfo.jsp");
 			dispatcher.forward(request, response);
 		}else if (command.equals("/empPwChange.em")) {
-			EmpPwChangePage action =new EmpPwChangePage();
-			action.empPwChange(request);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("employee/empPwChange.jsp");
+			dispatcher.forward(request, response);
 			
+		}else if(command.equals("/empPwChangeOk.em")) {
+			EmployeeConfirmPage action =new EmployeeConfirmPage();
+			action.empConfirm(request);
+			RequestDispatcher dispatcher =request.getRequestDispatcher(path)
 		}
 		
 	}
