@@ -19,6 +19,7 @@
 		<td>${dto.memPhone }</td><td>${dto.memEmail }</td>
 		<td>${dto.memAddress } ${dto.detailAdd }</td></tr>
 	</c:forEach>
+	
 </table>
 </body>
 </html>

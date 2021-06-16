@@ -15,15 +15,15 @@ public class LoginPage {
 		AuthInfo authInfo = dao.login(userId);
 		if(authInfo == null) {
 			session.removeAttribute("pwFail");
-			session.setAttribute("userFail", "아이디가 존재하지 않습니다.");
+			session.setAttribute("userFail", "아이디가 틀렸습니다..");
 		}else {
 			session.removeAttribute("userFail");
 			if(userPw.equals(authInfo.getUserPw())) {
 				session.removeAttribute("pwFail");
-				/// 웹브라우저를 닫기 전까지 사용할 수 있도록 session에 저장
+				/// when before close web browser useing // session store 
 				session.setAttribute("authInfo", authInfo);		
 			}else {
-				session.setAttribute("pwFail", "비밀번호가 틀렸습니다.");
+				session.setAttribute("pwFail", "비밀번호가 틀렸습니다..");
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,8 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-회원정보 페이지입니다.<br />
+나의 상세 정보 </br>
 아이디 : ${dto.memId } <br />
 이름 : ${dto.memName } <br />
 생년월일 : ${dto.memBirth } <br />
@@ -27,6 +26,6 @@
 			이메일 수신 안함
 		</c:if>
 		<br />
-<a href="memMod.mem?memId=${dto.memId }">수정</a>
+<a href="memSujung.mem">수정</a>
 </body>
 </html>

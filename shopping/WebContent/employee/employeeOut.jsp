@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="memDetail.mem" >회원정보</a> | 
-<a href="memPwChange.mem">비밀번호 변경</a> |
-<a href="memOut.mem">회원탈퇴</a> 
+
 </body>
 </html>

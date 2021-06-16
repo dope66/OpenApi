@@ -9,6 +9,8 @@
 </head>
 <body>
 	직원 리스트 페이지 입니다.
+	
+	
 	</br>
 	<c:if test="${!empty empList }">
 		<table border=1>

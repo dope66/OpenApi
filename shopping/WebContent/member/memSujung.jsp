@@ -8,7 +8,6 @@
 <title>Insert title here</title>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function sample4_execDaumPostcode() {
         new daum.Postcode({
@@ -57,11 +56,14 @@
 </script>
 </head>
 <body>
-<form action="memModifyOk.mem" method="post" name="frm"> 
-<input type="hidden" name="memId" value="${dto.memId }" />
+<form action="memSujungOk.mem" method="post" name="frm"> 
 	<table border = 1 align="center">
 		<tr><td>아이디</td>
 			<td> ${dto.memId } </td></tr>
+			<tr><td>비밀번호</td>
+				<td><input type="password" name="memPw"/>
+				<span>${pwFail }</span>
+				</td></tr>
 		<tr><td>이름</td>
 			<td> ${dto.memName }  </td></tr>
 		<tr><td>우편번호</td>
@@ -103,8 +105,6 @@
 				<input type="submit" value="수정 완료" />
 				<input type="button"  value="수정 안함" 
 					onclick="javascript:history.back();" />
-				<input type="button"  value="회원 강퇴" 
-	onclick="javascript:location.href='memDel.mem?memId=${dto.memId }'" />
 			</td></tr>
 	</table>
 </form>
