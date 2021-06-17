@@ -1,5 +1,7 @@
 package controller.employee;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import model.DAO.EmployeeDAO;
@@ -7,6 +9,11 @@ import model.DTO.EmployeeDTO;
 
 public class EmployeeModifyPage {
 	public void empModify(HttpServletRequest request) {
+		try {
+			request.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
 		EmployeeDTO dto = new EmployeeDTO();
 		dto.setEmployeeId(request.getParameter("employeeId"));
 		dto.setEmail(request.getParameter("email"));

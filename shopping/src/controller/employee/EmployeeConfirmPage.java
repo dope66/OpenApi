@@ -7,10 +7,18 @@ import model.DTO.AuthInfo;
 
 public class EmployeeConfirmPage {
 
-	public void empConfirm(HttpServletRequest request) {
-		
+	public String empConfirm(HttpServletRequest request) {
+		String path=null;
 		HttpSession session = request.getSession();
 		AuthInfo authInfo= (AuthInfo) session.getAttribute("authInfo");
+		if(request.getParameter("empPw").equals(authInfo.getUserPw())) {
+			path="employee/empPwChangeOk.jsp";
+			
+		}else {
+			request.setAttribute("pwFail1","Wrong password");
+			path="employee/emppwChange.jsp";
+		}
+		return path;
 		
 		
 	}

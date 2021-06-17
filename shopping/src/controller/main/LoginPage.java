@@ -20,7 +20,7 @@ public class LoginPage {
 			session.removeAttribute("userFail");
 			if(userPw.equals(authInfo.getUserPw())) {
 				session.removeAttribute("pwFail");
-				/// when before close web browser useing // session store 
+				/// when before close web browser using // session store 
 				session.setAttribute("authInfo", authInfo);		
 			}else {
 				session.setAttribute("pwFail", "비밀번호가 틀렸습니다..");

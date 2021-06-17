@@ -69,7 +69,8 @@ public class MemberController extends HttpServlet implements Servlet {
 			action.memDetail(request);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("member/memSujung.jsp");
 			dispatcher.forward(request, response);
-		} else if (command.equals("/memSujungOk.mem")) {
+		} 
+		else if (command.equals("/memSujungOk.mem")) {
 
 			MemberUpdatePage action = new MemberUpdatePage();
 			int i = action.memberUpdate(request);

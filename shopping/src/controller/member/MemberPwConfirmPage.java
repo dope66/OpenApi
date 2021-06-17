@@ -15,7 +15,7 @@ public class MemberPwConfirmPage {
 			 path="member/pwChangeOk.jsp";
 		 }else {
 			 request.setAttribute("pwFail1", "you got a Wrong Password");
-			 path="member/pwChange.jsp";
+			 path="employee/empPwChange.jsp";
 		 }
 	 
 	 return path;

@@ -35,14 +35,7 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
-	private void close() {
-		if(rs != null)	try {rs.close();} 
-						catch (SQLException e) {}
-		if(pstmt != null)	try {pstmt.close();} 
-						catch (SQLException e) {}
-		if(conn != null)	try {conn.close();} 
-						catch (SQLException e) {}
-	}
+
 	public void pwChange(String memId,String memPw) {
 		sql=" update member "
 				+ " set mem_pw=? "
@@ -196,6 +189,14 @@ public class MemberDAO {
 		}finally {
 			close();
 		}
+	}
+	private void close() {
+		if(rs != null)	try {rs.close();} 
+						catch (SQLException e) {}
+		if(pstmt != null)	try {pstmt.close();} 
+						catch (SQLException e) {}
+		if(conn != null)	try {conn.close();} 
+						catch (SQLException e) {}
 	}
 }
 
