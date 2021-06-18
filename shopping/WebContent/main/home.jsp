@@ -5,6 +5,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+
+
+a{ text-decoration:none }
+a {
+  color:blue;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition:.5s;
+}
+a:hover { color:red; }
+
+</style>
+
+
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -12,12 +30,12 @@
 	<!-- 로그인 안되었을 때  -->
 	<c:if test="${empty authInfo }">
 		<form action="login.sm" method="get" name="frm">
-			<table border=1>
+			<table border=1 class="tb">
 				<tr>
 					<td colspan="3">아이디저장 | 자동로그인</td>
 				</tr>
 				<tr>
-					<td>아이디</td>
+					<td >아이디</td>
 					<td><input type="text" name="userId" /><span>${userFail }</span></td>
 					<td rowspan="2"><input type="image" src="images/img1.jpg"
 						width="60" alt="login" /></td>
@@ -71,11 +89,11 @@
 	}
 	
 	</script>
-	<table align="center">
+	<table align="center" class="ta">
 		<tr>
 			<c:forEach items="${lists }" var="dto" varStatus="cnt">
-				<td><a href="javascript:goodsBuy('${dto.prodNum }')">
-				<img width="200" height="200"
+				<td><a href="javascript:goodsBuy('${dto.prodNum }')"> <img
+						width="200" height="200"
 						src="goods/upload/${dto.prodImage.split(',')[0] } "></br>
 						${dto.prodName }</br> 가격 : <fmt:formatNumber value="${dto.prodPrice }"
 							type="currency" /></a></td>
