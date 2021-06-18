@@ -42,7 +42,7 @@ ${dto.ctgr }의 ${dto.prodName } 상품 설명 입니다.
 		<tr>
 			<td>
 			<input type="number" min="1" name="PurchaseQty"
-			onchange="onQty();" />
+			onchange="onQty();" value="1" />
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			${dto.prodPrice }
 			
@@ -67,7 +67,7 @@ ${dto.ctgr }의 ${dto.prodName } 상품 설명 입니다.
 			${dto.prodDetail }</br>
 	<c:forTokens items="${dto.prodImage }" delims=","
 	var="file">
-	<c:if test="${file !=null }">
+	<c:if test="${file !='null' }">
 	<img width="800" src="goods/upload/${file }"/></br>
 	</c:if>
 	</c:forTokens>			
