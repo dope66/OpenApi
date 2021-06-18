@@ -45,9 +45,28 @@ public class GoodsController extends HttpServlet implements Servlet {
 		}
 		else if(command.equals("/goodsModify.gd")) {
 			GoodsUpdatePage action= new GoodsUpdatePage();
-			//위에서 잘못해서 modify를 해서 여기에 업데이트를함
+			//�쐞�뿉�꽌 �옒紐삵빐�꽌 modify瑜� �빐�꽌 �뿬湲곗뿉 �뾽�뜲�씠�듃瑜쇳븿
 			action.goodsUpdate(request);
 			response.sendRedirect("goodsList.gd");
+		}
+		else if(command.equals("/prodDel.gd")) {
+			GoodsDeletePage action= new  GoodsDeletePage();
+			action.prodDelete(request);
+			response.sendRedirect("goodsList.gd");		
+		}else if(command.equals("/prodInfo.gd")) {
+			response.setCharacterEncoding("utf-8");
+			GoodsModifyPage action= new GoodsModifyPage();
+			action.goodsModify(request);
+			RequestDispatcher dispatcher=
+					request.getRequestDispatcher("goods/goodsDetail.jsp");
+			dispatcher.include(request, response);// forward include anyway
+		}else if (command.equals("/goodsCartAdd.gd")) {
+			GoodsCartAddPage action=
+					new GoodsCartAddPage();
+			action.cartAdd(request);
+			RequestDispatcher dispatcher=
+					request.getRequestDispatcher("goods/goodsCart.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 

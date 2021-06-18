@@ -28,6 +28,7 @@
 				type="currency" />
 					</td>
 				<td>${dto.prodDelFee }</td>
+				
 			</tr>
 		</c:forEach>
 	</table>
