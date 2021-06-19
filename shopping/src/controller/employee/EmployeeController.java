@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.member.MemberDetailPage;
+import controller.member.MemberOutPage;
 import controller.member.MemberPwChange;
 
 public class EmployeeController extends HttpServlet implements Servlet {
@@ -44,14 +45,14 @@ public class EmployeeController extends HttpServlet implements Servlet {
 			dispatcher.forward(request, response);
 
 		}
-		
+
 		else if (command.equals("/empModify.em")) {
 
 			EmployeeInfoPage action = new EmployeeInfoPage();
 			action.empInfo(request);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("employee/employeeModify.jsp");
 			dispatcher.forward(request, response);
-			//직원리스트에서의 수정 
+			// 직원리스트에서의 수정
 		} else if (command.equals("/empModifyOk.em")) {
 			EmployeeModifyPage action = new EmployeeModifyPage();
 			action.empModify(request);
@@ -67,14 +68,13 @@ public class EmployeeController extends HttpServlet implements Servlet {
 			action.empDetail(request);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("employee/empSujung.jsp");
 			dispatcher.forward(request, response);
-		}else if(command.equals("/empSujungOk.em")) {
-			EmployeeUpdatePage action =new EmployeeUpdatePage();
-			int i=action.employeeUpdate(request);
-			
-			if(i==1) {
+		} else if (command.equals("/empSujungOk.em")) {
+			EmployeeUpdatePage action = new EmployeeUpdatePage();
+			int i = action.employeeUpdate(request);
+
+			if (i == 1) {
 				response.sendRedirect("empDetail.em");
-			}
-			else {
+			} else {
 				response.sendRedirect("empSujung.em");
 			}
 		}
@@ -99,24 +99,36 @@ public class EmployeeController extends HttpServlet implements Servlet {
 		else if (command.equals("/PwChangeOk.em")) {
 			EmployeeConfirmPage action = new EmployeeConfirmPage();
 			String path = action.empConfirm(request);
-			RequestDispatcher dispatcher =
-					request.getRequestDispatcher(path);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 			dispatcher.forward(request, response);
-		}
-		else if(command.equals("/ChangeEmpPw.em")) {
-	EmployeePwChange action = new EmployeePwChange();
-			
-			int i=action.empPwChange(request);
-			if(i==1)
-			{
+		} else if (command.equals("/ChangeEmpPw.em")) {
+			EmployeePwChange action = new EmployeePwChange();
+
+			int i = action.empPwChange(request);
+			if (i == 1) {
 				response.sendRedirect("main.sm");
-			}else {
-				RequestDispatcher dispatcher =
-						request.getRequestDispatcher("employee/PwChange.jsp");
+			} else {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("employee/PwChange.jsp");
 				dispatcher.forward(request, response);
 			}
 		}
 
+		else if (command.equals("/empOut.em")) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("employee/outPW.jsp");
+			dispatcher.forward(request, response);
+			/*
+			 * MemberOutPage action=new MemberOutPage(); action.memOut(request);
+			 * response.sendRedirect("main.sm");
+			 */
+		} else if (command.equals("/empOutOk.em")) {
+			EmployeeOutPage action = new EmployeeOutPage();
+			int i = action.empOut(request);
+			if (i == 1) {
+				response.sendRedirect("main.sm");
+			} else {
+				response.sendRedirect("empOut.em");
+			}
+		}
 	}
 
 	@Override

@@ -49,6 +49,20 @@ public class EmployeeDAO {
 		}
 		
 	}
+	public void empDel(String empId) {
+		sql = "delete from member where EMP_USERID = ? ";
+		getConnect();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, empId);
+			int i = pstmt.executeUpdate();
+			System.out.println(i + "개가 삭제되었습니다.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}				
+	}
 	public void empPwChange(String empId,String empPw) {
 		sql=" update employees "
 				+ "	set emp_pw=? "
@@ -64,6 +78,7 @@ public class EmployeeDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
 		
 				
 		

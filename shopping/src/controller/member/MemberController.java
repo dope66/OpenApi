@@ -83,7 +83,6 @@ public class MemberController extends HttpServlet implements Servlet {
 		} else if (command.equals("/memOut.mem")) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("member/outPw.jsp");
 			dispatcher.forward(request, response);
-
 			/*
 			 * MemberOutPage action=new MemberOutPage(); action.memOut(request);
 			 * response.sendRedirect("main.sm");
@@ -95,9 +94,9 @@ public class MemberController extends HttpServlet implements Servlet {
 				response.sendRedirect("main.sm");
 			} else {
 				response.sendRedirect("memOut.mem");
-			}
+			}} 
 //// password change
-		} else if (command.equals("/memPwChange.mem")) {
+		else if (command.equals("/memPwChange.mem")) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("member/pwChange.jsp");
 			dispatcher.forward(request, response);
 			
