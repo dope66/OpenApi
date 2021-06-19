@@ -32,9 +32,9 @@ public class MemberController extends HttpServlet implements Servlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("member/memberList.jsp");
 			dispatcher.include(request, response);
 		} else if (command.equals("/memInfo.mem")) {
+			response.setCharacterEncoding("UTF-8");
 			MemberInfoPage action = new MemberInfoPage();
 			action.memInfo(request);
-			response.setCharacterEncoding("utf-8");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("member/memberInfo.jsp");
 			dispatcher.include(request, response);
 		} else if (command.equals("/memMod.mem")) {
@@ -96,10 +96,11 @@ public class MemberController extends HttpServlet implements Servlet {
 			} else {
 				response.sendRedirect("memOut.mem");
 			}
-
+//// password change
 		} else if (command.equals("/memPwChange.mem")) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("member/pwChange.jsp");
 			dispatcher.forward(request, response);
+			
 		} else if (command.equals("/pwChangeOk.mem")) {
 			MemberPwConfirmPage action = new MemberPwConfirmPage();
 			String path = action.pwConfirm(request);

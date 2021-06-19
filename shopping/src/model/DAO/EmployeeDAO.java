@@ -74,7 +74,7 @@ public class EmployeeDAO {
 		sql = " update employees "
 			+ " set JOB_ID = ?, PH_NUMBER=?, OFFICE_NUMBER =?,"
 			+ "     EMAIL = ?, EMP_ADDRESS = ? "
-			+ " where EMP_USERID = ?";
+			+ " where employee_id = ?";
 		getConnect();
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -83,7 +83,7 @@ public class EmployeeDAO {
 			pstmt.setString(3, dto.getOfficeNumber());
 			pstmt.setString(4, dto.getEmail());
 			pstmt.setString(5, dto.getEmpAddress());
-			pstmt.setString(6, dto.getEmpUserid());
+			pstmt.setString(6, dto.getEmployeeId());
 			int i = pstmt.executeUpdate();
 			System.out.println(i + "개가 수정되었습니다.");
 		} catch (SQLException e) {

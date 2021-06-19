@@ -12,11 +12,11 @@ public class EmployeeConfirmPage {
 		HttpSession session = request.getSession();
 		AuthInfo authInfo= (AuthInfo) session.getAttribute("authInfo");
 		if(request.getParameter("empPw").equals(authInfo.getUserPw())) {
-			path="employee/empPwChangeOk.jsp";
+			path="employee/PwChangeOk.jsp";
 			
 		}else {
 			request.setAttribute("pwFail1","Wrong password");
-			path="employee/emppwChange.jsp";
+			path="employee/PwChange.jsp";
 		}
 		return path;
 		

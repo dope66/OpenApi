@@ -18,6 +18,7 @@ a {
   transition:.5s;
 }
 a:hover { color:red; }
+.loginimg:hover{ }
 
 </style>
 
@@ -37,7 +38,7 @@ a:hover { color:red; }
 				<tr>
 					<td >아이디</td>
 					<td><input type="text" name="userId" /><span>${userFail }</span></td>
-					<td rowspan="2"><input type="image" src="images/img1.jpg"
+					<td rowspan="2" class="loginimg"><input type="image" src="images/img1.jpg"
 						width="60" alt="login" /></td>
 				</tr>
 				<tr>

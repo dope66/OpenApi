@@ -64,8 +64,8 @@
 </script>
 </head>
 <body>
-	<form action="ChangePw.mem" name="frm" method="post" id="frm">
-		현재 비밀번호 : <input type="password" name="memPw" id="empPw" /></br> 바꿀 비밀번호 :
+	<form action="ChangeEmpPw.em" name="frm" method="post" id="frm">
+		현재 비밀번호 : <input type="password" name="empPw" id="empPw" /></br> 바꿀 비밀번호 :
 		<input type="password" name="newPw" id="newPw" /></br> 변경 비밀번호 확인 : <input
 			type="password" name="newPwCon" id="newPwCon" /></br> <input
 			type="button" value="비밀번호 변경" id="btn" />

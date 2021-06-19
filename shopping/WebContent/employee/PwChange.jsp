@@ -7,9 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="" name="frm" method="post" >
-비밀 번호 : <input type="password" name="empPw"/>
+<form action="PwChangeOk.em" name="frm" method="post">
+비밀 번호 : <input type="password" name="empPw">
+<span>${pwFail1 }</span> </br>
+
 <input type="submit" value="확인"/>
+
 </form>
 </body>
 </html>
