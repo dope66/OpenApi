@@ -37,7 +37,65 @@ public class GoodsDAO extends DataBaseInfo{
 		}
 	
 	}
-
+	public ProductCartDTO prodCart(String prodNum, String memId) {
+		ProductCartDTO dto = null;
+		sql = "select p.PROD_NUM , PROD_NAME, PROD_PRICE, "
+				+ "	  PRUD_SUPPLYER, PROD_DEL_FEE, prod_image,"
+				+ "       MEM_ID, CART_QTY, CART_PRICE" 
+				+ " from products p, cart c" 
+				+ " where p.PROD_NUM = c.PROD_NUM "
+				+ " and MEM_ID = ? and c.PROD_NUM = ?"; 
+		getConnect();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memId);
+			pstmt.setString(2, prodNum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto = new ProductCartDTO();
+				dto.setCartDTO(new CartDTO());
+				dto.setProductDTO(new ProductDTO());
+				dto.getProductDTO().setProdNum(rs.getString("prod_num"));
+				dto.getCartDTO().setCartPrice(rs.getInt("CART_PRICE"));
+				dto.getCartDTO().setCartQty(rs.getString("cart_Qty"));
+				dto.getProductDTO()
+				   .setProdDelFee(rs.getString("prod_Del_Fee"));
+				dto.getProductDTO()
+					.setProdImage(rs.getString("prod_Image"));
+				dto.getProductDTO()
+				   .setProdName(rs.getString("prod_Name"));
+				dto.getProductDTO()
+				   .setProdPrice(rs.getInt("prod_Price"));
+				dto.getProductDTO()
+				   .setProdSupplyer(rs.getString("prud_Supplyer"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return dto;
+	}
+	public void cartProdDel(CartDTO dto)
+	{
+		sql=" delete from cart"
+				+ " where MEM_ID = ? and PROD_NUM = ?";
+		getConnect();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getMemId());
+			pstmt.setString(2, dto.getProdNum());
+			int i =pstmt.executeUpdate();
+			System.out.println(i+"개가 삭제되었습니다.");
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+	}
 	public void prodDel(String prodNum)
 	{
 		sql=" delete from products"
@@ -48,6 +106,28 @@ public class GoodsDAO extends DataBaseInfo{
 			pstmt.setString(1, prodNum);
 			int i= pstmt.executeUpdate();
 			System.out.println(i+"개가 삭제 되엇습니다.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+	}
+	
+	public void cartQtyDown(CartDTO dto) {
+		sql= " update cart"
+				+ "	set CART_QTY = CART_QTY - ? ,"
+				+ "	 CART_PRICE = CART_PRICE - ? "
+				+ " WHERE MEM_ID = ? AND PROD_NUM= ? ";
+		getConnect();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, 1);
+			pstmt.setInt(2,dto.getCartPrice());
+			pstmt.setString(3, dto.getMemId());
+			pstmt.setString(4, dto.getProdNum());
+			int i= pstmt.executeUpdate();
+			System.out.println(i+"개가 수정 되었습니다.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -71,6 +151,7 @@ public class GoodsDAO extends DataBaseInfo{
 				ProductCartDTO dto = new ProductCartDTO();
 				dto.setCartDTO(new CartDTO());
 				dto.setProductDTO(new ProductDTO());
+				dto.getProductDTO().setProdNum(rs.getString("prod_num"));
 				dto.getCartDTO().setCartPrice(rs.getInt("CART_PRICE"));
 				dto.getCartDTO().setCartQty(rs.getString("cart_Qty"));
 				dto.getProductDTO()
