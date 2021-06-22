@@ -91,6 +91,15 @@ public class GoodsController extends HttpServlet implements Servlet {
 			dispatcher.forward(request, response);
 			
 			
+		}else if (command.equals("/goodsOrder.gd"))
+		{
+			GoodsOrderPage action = new GoodsOrderPage();
+			action.goodsOrder(request);
+			RequestDispatcher dispatcher=
+					request.getRequestDispatcher( "goods/payment.jsp");
+			dispatcher.forward(request, response);
+			
+			
 		}
 	}
 

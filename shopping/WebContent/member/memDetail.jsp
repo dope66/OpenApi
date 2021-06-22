@@ -18,7 +18,7 @@
 상세주소 : ${dto.detailAdd } <br />
 연락처 : ${dto.memPhone } <br />
 이메일 : ${dto.memEmail } <br />
-계좌번호 : ${dto.memAccount }  <br />
+계좌번호 : ${dto.memAccount }  <br /> 
 수신여부 : <c:if test="${dto.memEmailCk == 'Y' }" > 
 			이메일 수신 함
 		</c:if> 

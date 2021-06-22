@@ -17,7 +17,7 @@
 우편번호 : ${dto.postNumber } <br />
 주소 : ${dto.memAddress } <br />
 상세주소 : ${dto.detailAdd } <br />
-연락처 : ${dto.memPhone } <br />
+연락처 : ${dto.memPhone } <br /> 
 이메일 : ${dto.memEmail } <br />
 계좌번호 : ${dto.memAccount }  <br />
 수신여부 : <c:if test="${dto.memEmailCk == 'Y' }" > 

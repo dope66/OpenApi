@@ -12,7 +12,7 @@
 <form action="goodsModify.gd" method="post" name="frm" >
 <input type="hidden" name="prodNum" value="${dto.prodNum }">
 	<table border = 1 align="center">
-		<tr><th>상품 번호</th>
+		<tr><th>상품 번호</th> 
 			<td>${dto.ctgr }-${dto.prodNum }</td></tr>		
 		<tr><th>상품명</th>
 			<td><input type="text" name="prodName" 

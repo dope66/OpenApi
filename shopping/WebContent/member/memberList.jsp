@@ -16,7 +16,7 @@
 	<tr><td>
 	<a href="memInfo.mem?memId=${dto.memId }">${dto.memId }</a></td>
 		<td>${dto.memName }</td>
-		<td>${dto.memPhone }</td><td>${dto.memEmail }</td>
+		<td>${dto.memPhone }</td><td>${dto.memEmail }</td> 
 		<td>${dto.memAddress } ${dto.detailAdd }</td></tr>
 	</c:forEach>
 	
