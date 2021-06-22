@@ -12,7 +12,7 @@ import model.DTO.PurchaseDTO;
 
 public class GoodsOrderPage {
 
-		public void goodsOrder(HttpServletRequest request	) {
+		public String goodsOrder(HttpServletRequest request	) {
 			HttpSession session = request.getSession();
 			AuthInfo authInfo=(AuthInfo) session.getAttribute("authInfo");
 			
@@ -41,7 +41,7 @@ public class GoodsOrderPage {
 				dao.cartDel(prodNum,memId);
 			}
 			
-			
+			return purchaseNum+","+dto.getPurchaseTotPrice(); //2개값을 한번에 보내기위해 묶었다.
 		}
 
 }

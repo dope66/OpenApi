@@ -17,89 +17,91 @@ public class GoodsController extends HttpServlet implements Servlet {
 		String contextPath = request.getContextPath();
 		String command = RequestURI.substring(contextPath.length());
 		if (command.equals("/goodsList.gd")) {
-			GoodsListPage action =new GoodsListPage();
-			
+			GoodsListPage action = new GoodsListPage();
+
 			action.goodsList(request);
-			RequestDispatcher dispatcher=
-					request.getRequestDispatcher("goods/goodsList.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("goods/goodsList.jsp");
 			dispatcher.forward(request, response);
-		}else if(command.equals("/goodsRegist.gd")) {
+		} else if (command.equals("/goodsRegist.gd")) {
 			response.setCharacterEncoding("utf-8");
-			GoodsNumberPage action=
-					new GoodsNumberPage();
+			GoodsNumberPage action = new GoodsNumberPage();
 			action.goodsNum(request);
-			RequestDispatcher dispatcher=
-					request.getRequestDispatcher("goods/goodsJoin.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("goods/goodsJoin.jsp");
 			dispatcher.include(request, response);
-		}else if(command.equals("/goodsJoin.gd")) {
+		} else if (command.equals("/goodsJoin.gd")) {
 			GoodsJoinPage action = new GoodsJoinPage();
 			action.goodsJoin(request);
 			response.sendRedirect("goodsList.gd");
-		}
-		else if (command.equals("/prodDetail.gd")) {
-			GoodsModifyPage action= new GoodsModifyPage();
+		} else if (command.equals("/prodDetail.gd")) {
+			GoodsModifyPage action = new GoodsModifyPage();
 			action.goodsModify(request);
-			RequestDispatcher dispatcher=
-					request.getRequestDispatcher("goods/goodsModify.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("goods/goodsModify.jsp");
 			dispatcher.forward(request, response);
-		}
-		else if(command.equals("/goodsModify.gd")) {
-			GoodsUpdatePage action= new GoodsUpdatePage();
-			//�쐞�뿉�꽌 �옒紐삵빐�꽌 modify瑜� �빐�꽌 �뿬湲곗뿉 �뾽�뜲�씠�듃瑜쇳븿
+		} else if (command.equals("/goodsModify.gd")) {
+			GoodsUpdatePage action = new GoodsUpdatePage();
+			// �쐞�뿉�꽌 �옒紐삵빐�꽌 modify瑜� �빐�꽌 �뿬湲곗뿉 �뾽�뜲�씠�듃瑜쇳븿
 			action.goodsUpdate(request);
 			response.sendRedirect("goodsList.gd");
-		}
-		else if(command.equals("/prodDel.gd")) {
-			GoodsDeletePage action= new  GoodsDeletePage();
+		} else if (command.equals("/prodDel.gd")) {
+			GoodsDeletePage action = new GoodsDeletePage();
 			action.prodDelete(request);
-			response.sendRedirect("goodsList.gd");		
-		}else if(command.equals("/prodInfo.gd")) {
+			response.sendRedirect("goodsList.gd");
+		} else if (command.equals("/prodInfo.gd")) {
 			response.setCharacterEncoding("utf-8");
-			GoodsModifyPage action= new GoodsModifyPage();
+			GoodsModifyPage action = new GoodsModifyPage();
 			action.goodsModify(request);
-			RequestDispatcher dispatcher=
-					request.getRequestDispatcher("goods/goodsDetail.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("goods/goodsDetail.jsp");
 			dispatcher.include(request, response);// forward include anyway
-		}else if (command.equals("/goodsCartAdd.gd")) {
-			GoodsCartAddPage action=
-					new GoodsCartAddPage();
+		} else if (command.equals("/goodsCartAdd.gd")) {
+			GoodsCartAddPage action = new GoodsCartAddPage();
 			action.cartAdd(request);
-			
+
 			response.sendRedirect("goodsCartList.gd");
-		}else if(command.equals("/goodsCartList.gd")) {
+		} else if (command.equals("/goodsCartList.gd")) {
 			GoodsCartList cartList = new GoodsCartList();
 			cartList.cartList(request);
-			RequestDispatcher dispatcher=
-					request.getRequestDispatcher("goods/goodsCart.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("goods/goodsCart.jsp");
 			dispatcher.forward(request, response);
-		}
-		else if(command.equals("/goodsCartQtyDown.gd")) {
-			GoodsCartQtyDownPage action=
-					new GoodsCartQtyDownPage();
+		} else if (command.equals("/goodsCartQtyDown.gd")) {
+			GoodsCartQtyDownPage action = new GoodsCartQtyDownPage();
 			action.cartQtyDown(request);
 			response.sendRedirect("goodsCartList.gd");
-			
-		}else if(command.equals("/cartProdDel.gd")) {
-			GoodsCartProdDEl action= new GoodsCartProdDEl();
+
+		} else if (command.equals("/cartProdDel.gd")) {
+			GoodsCartProdDEl action = new GoodsCartProdDEl();
 			action.cartProdDel(request);
 			response.sendRedirect("goodsCartList.gd");
-		}else if (command.equals("/goodsBuy.gd")) {
-			GoodsBuyPage action =new GoodsBuyPage();
+		} else if (command.equals("/goodsBuy.gd")) {
+			GoodsBuyPage action = new GoodsBuyPage();
 			action.goodsBuy(request);
-			RequestDispatcher dispatcher=
-					request.getRequestDispatcher("goods/order.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("goods/order.jsp");
 			dispatcher.forward(request, response);
-			
-			
-		}else if (command.equals("/goodsOrder.gd"))
-		{
+
+		} else if (command.equals("/goodsOrder.gd")) {
 			GoodsOrderPage action = new GoodsOrderPage();
-			action.goodsOrder(request);
-			RequestDispatcher dispatcher=
-					request.getRequestDispatcher( "goods/payment.jsp");
+
+			String [] purchaseNum = action.goodsOrder(request).split(",");
+			response.sendRedirect("paymentOk.gd?purchaseNum=" + purchaseNum[0]
+					+"&purchaseTotPrice="+purchaseNum[1]);
+
+		} else if (command.equals("/purchaseCon.gd")) {
+			PurchaseListConPage action = new PurchaseListConPage();
+			action.purchaseList(request);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("goods/purchaseCon.jsp");
 			dispatcher.forward(request, response);
+		} else if (command.equals("/paymentOk.gd")) {
+			request.setAttribute("purchaseNum", request.getParameter("purchaseNum"));
+			request.setAttribute("purchaseTotPrice", request.getParameter("purchaseTotPrice"));
+			RequestDispatcher dispatcher = request.getRequestDispatcher("goods/payment.jsp");
+			dispatcher.forward(request, response);
+		}
+		else if (command.equals("/doPayment.gd")) {
+			PaymentPage action =new PaymentPage();
+			action.payment(request);
 			
-			
+			RequestDispatcher dispatcher=
+					request.getRequestDispatcher("goods/buyFinished.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 
