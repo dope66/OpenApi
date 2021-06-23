@@ -39,7 +39,7 @@ public class GoodsDAO extends DataBaseInfo {
 		sql = " select rpad(substr(m.mem_id,1,3),length(m.mem_id),'*') mem_Id, "
 				+ " review_content, review_img, review_date "
 				+ " from member m, purchase p , review r "
-				+ "	where m.mem_id = p.mem_id and p.purchase_num = r.purchase_num" 
+				+ "	where  p.purchase_num = r.purchase_num" 
 				+ " and r.prod_num = ?";
 		getConnect();
 		try {
@@ -150,10 +150,11 @@ public class GoodsDAO extends DataBaseInfo {
 				+ "		REVIEW_CONTENT"
 				+ "		from products p1, purchase p2, purchase_list p3, payment p4,"
 				+ "		review r "
-				+ " where   p2.PURCHASE_NUM =p3.PURCHASE_NUM "
-				+ "			and p1.prod_num= p3.prod_num  "
-				+ " 		and p2.PURCHASE_NUM = p4.PURCHASE_NUM(+) "
-				+ "			and  p2.PURCHASE_NUM = r.PURCHASE_NUM(+) "
+				+ " where  p3.prod_num = p1.prod_num "
+				+ "			and p3.PURCHASE_NUM = p2.PURCHASE_NUM  "
+				+ " 		 and p3.PURCHASE_NUM = r.PURCHASE_NUM(+)"
+				+ "			and p3.prod_num = r.prod_num(+) "
+				+ "			and p2.PURCHASE_NUM = p4.PURCHASE_NUM(+) "
 				+ "			and p2.mem_id= ?"
 				+ "  		order by PURCHASE_NUM desc";
 		getConnect();

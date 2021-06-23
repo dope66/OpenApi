@@ -9,14 +9,16 @@ import model.DTO.AuthInfo;
 public class MemberOutPage {
 	public int memOut(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
-		if (request.getParameter("memPw").equals(authInfo.getUserPw())) {
+		AuthInfo authInfo = 
+				(AuthInfo)session.getAttribute("authInfo");
+		if(request.getParameter("memPw")
+				  .equals(authInfo.getUserPw())) {
 			MemberDAO dao = new MemberDAO();
 			dao.memDel(authInfo.getUserId());
-			session.invalidate();//remove´Â ¼Ó¼º¸¸ ³¯¸®°í ÀÌ°Ç ÀüºÎ´Ù ³¯¸²
+			session.invalidate();
 			return 1;
-		} else {
-			session.setAttribute("pwFail", "Wrong password");
+		}else {
+			session.setAttribute("pwFail", "ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤.");
 			return 2;
 		}
 	}

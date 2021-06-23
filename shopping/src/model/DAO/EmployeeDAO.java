@@ -232,7 +232,7 @@ public class EmployeeDAO {
 			pstmt.setString(9, dto.getEmail());
 			pstmt.setString(10, dto.getEmpAddress());	
 			result = pstmt.executeUpdate();
-			System.out.println(result + "개행이 저장되었습니다.");
+			System.out.println(result + "개 행이 저장되었습니다.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {

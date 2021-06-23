@@ -86,10 +86,12 @@ ${dto.ctgr }의 ${dto.prodName } 상품 설명 입니다.
 	<c:forEach items="${list }" var="dto">
 	<p>
 	${dto.memId } / ${dto.reviewDate }<br/>
-	${fn:replace(dto.reviewContent,br,"<br/>") }
 	<c:if test="${dto.reviewImg != null }">
-	<img src="goods/review/${dto.reviewImg }">
+	<img src="goods/review/${dto.reviewImg }"><br/>
 	</c:if>
+	
+	${fn:replace(dto.reviewContent,br,"<br/>") }
+	
 	</p>
 	<hr/>
 	
