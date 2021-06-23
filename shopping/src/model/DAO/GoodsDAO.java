@@ -7,8 +7,10 @@ import java.util.List;
 import model.DTO.CartDTO;
 import model.DTO.OrderList;
 import model.DTO.PaymentDTO;
+import model.DTO.ProdReviewDTO;
 import model.DTO.ProductCartDTO;
 import model.DTO.ProductDTO;
+import model.DTO.ProductReviewDTO;
 import model.DTO.PurchaseDTO;
 
 public class GoodsDAO extends DataBaseInfo {
@@ -30,6 +32,82 @@ public class GoodsDAO extends DataBaseInfo {
 			close();
 		}
 
+	}
+	public List<ProdReviewDTO > prodReviewSelect(String prodNum)
+	{	
+		List<ProdReviewDTO >list =new ArrayList<ProdReviewDTO>();
+		sql = " select rpad(substr(m.mem_id,1,3),length(m.mem_id),'*') mem_Id, "
+				+ " review_content, review_img, review_date "
+				+ " from member m, purchase p , review r "
+				+ "	where m.mem_id = p.mem_id and p.purchase_num = r.purchase_num" 
+				+ " and r.prod_num = ?";
+		getConnect();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, prodNum);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				ProdReviewDTO dto=new ProdReviewDTO();
+				dto.setMemId(rs.getString(1));
+				dto.setReviewContent(rs.getString(2));
+				dto.setReviewDate(rs.getDate(4));
+				dto.setReviewImg(rs.getString(3));
+				list.add(dto);
+				
+				
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return list;
+		
+	}
+	public void reviewUpdate(ProductReviewDTO dto) {
+		sql= " update review "
+				+ "	set REVIEW_CONTENT =? "
+				+ " WHERE PURCHASE_NUM =? AND PROD_NUM= ?";
+		getConnect();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getReviewContent());
+			pstmt.setString(2, dto.getPurchaseNum());
+			pstmt.setString(3, dto.getProdNum());
+			int i= pstmt.executeUpdate();
+			System.out.println(i+"개가 수정되었습니다.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+	}
+	public void reviewInsert(ProductReviewDTO dto)
+	{
+		sql=" insert into review(PURCHASE_NUM, PROD_NUM,REVIEW_DATE,"
+				+ "  REVIEW_CONTENT, REVIEW_IMG ) "
+				+ "  values(?,?,sysdate,?,?)";
+		getConnect();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getPurchaseNum());
+			pstmt.setString(2, dto.getProdNum());
+			pstmt.setString(3, dto.getReviewContent());
+			pstmt.setString(4, dto.getReviewImage());
+			int i=pstmt.executeUpdate();
+			System.out.println(i+"개가 등록 되엇습니다.");
+				
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+				
+				
 	}
 	public void payment(PaymentDTO dto) {
 		String num = " select to_char(sysdate,'yyyymmdd') || " 
@@ -62,14 +140,22 @@ public class GoodsDAO extends DataBaseInfo {
 	}
 	public List<OrderList> orderlist(String memId) {
 		List<OrderList> list = new ArrayList<OrderList>();
-		sql = " select p2.purchase_date , p4.PAYMENT_APPR_NUM, p1.prod_num, "
-				+ "	p2.PUrCHASE_NUM ,p1.prod_name, "
-				+ "	p1.prud_supplyer, " 
-				+ "	p2.purchase_tot_price,p1.prod_image "
-				+ "	from products p1, purchase p2,purchase_list p3, payment p4"
-				+ " where   p2.PUrCHASE_NUM =p3.PUrCHASE_NUM and p1.prod_num= p3.prod_num and "
-				+ " 		p2.PUrCHASE_NUM=p4.PUrCHASE_NUM(+) and p2.mem_id= ?"
-				+ "  		order by purchase_num desc";
+		sql = " select  p2.PURCHASE_DATE , "
+				+ "		p4.PAYMENT_APPR_NUM, "
+				+ "		p1.PROD_NAME, "
+				+ "		p2.PURCHASE_NUM ,"
+				+ "		p1.PROD_NUM, "
+				+ "		p1.prud_supplyer, " 
+				+ "		p2.PURCHASE_TOT_PRICE, p1.PROD_IMAGE, "
+				+ "		REVIEW_CONTENT"
+				+ "		from products p1, purchase p2, purchase_list p3, payment p4,"
+				+ "		review r "
+				+ " where   p2.PURCHASE_NUM =p3.PURCHASE_NUM "
+				+ "			and p1.prod_num= p3.prod_num  "
+				+ " 		and p2.PURCHASE_NUM = p4.PURCHASE_NUM(+) "
+				+ "			and  p2.PURCHASE_NUM = r.PURCHASE_NUM(+) "
+				+ "			and p2.mem_id= ?"
+				+ "  		order by PURCHASE_NUM desc";
 		getConnect();
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -77,14 +163,18 @@ public class GoodsDAO extends DataBaseInfo {
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				OrderList dto= new OrderList();
-				dto.setPaymentApprNum(rs.getString("payment_Appr_Num"));
-				dto.setProdImage(rs.getString("prod_Image"));
-				dto.setProdName(rs.getString("prod_Name"));
-				dto.setProdNum(rs.getString("prod_Num"));
-				dto.setProdSupplyer(rs.getString("prud_Supplyer"));
-				dto.setPurchaseDate(rs.getString("purchase_Date"));
-				dto.setPurchaseNum(rs.getString("purchase_Num"));
-				dto.setPurchaseTotPrice(rs.getString("purchase_Tot_Price"));
+				dto.setPurchaseDate(rs.getString("PURCHASE_DATE"));//
+				dto.setPaymentApprNum(rs.getString("PAYMENT_APPR_NUM"));//
+				dto.setProdName(rs.getString("PROD_NAME"));//
+				dto.setPurchaseNum(rs.getString("PURCHASE_NUM"));//
+				dto.setProdImage(rs.getString("PROD_IMAGE"));//
+				
+				dto.setProdNum(rs.getString("PROD_NUM"));
+				dto.setProdSupplyer(rs.getString("PRUD_SUPPLYER"));//
+				
+				dto.setPurchaseTotPrice(rs.getString("PURCHASE_TOT_PRICE"));//
+				
+				dto.setReviewContent(rs.getString("REVIEW_CONTENT"));//
 				
 				list.add(dto);
 			}
@@ -98,7 +188,33 @@ public class GoodsDAO extends DataBaseInfo {
 	
 		return list;
 	}
-
+	public void reviewSelect(ProductReviewDTO dto) {
+		sql=" select PURCHASE_NUM,PROD_NUM, REVIEW_DATE,"
+				+ " REVIEW_CONTENT,REVIEW_IMG "
+				+ "FROM review "
+				+ "where PURCHASE_NUM =? and PROD_NUM= ?";
+		getConnect();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getPurchaseNum());
+			pstmt.setString(2, dto.getProdNum());
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				dto.setProdNum(rs.getString("prod_Num"));
+				dto.setPurchaseNum(rs.getString("purchase_num"));
+				dto.setReviewContent(rs.getString("REVIEW_CONTENT"));
+				dto.setReviewDate(rs.getString("REVIEW_DATE"));
+				dto.setReviewImage(rs.getString("REVIEW_IMG"));
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+	}
 	public void purchaseListInsert(String purchaseNum, String prodNum, String memId) {
 		sql = " insert into purchase_list (PURCHASE_NUM , PROD_NUM," + " PURCHASE_QTY, PURCHASE_PRICE ) "
 				+ " select ?, PROD_NUM, CART_QTY, CART_PRICE " + " from cart " + " where PROD_NUM = ? and mem_id = ? ";
@@ -287,7 +403,7 @@ public class GoodsDAO extends DataBaseInfo {
 		getConnect();
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(8, dto.getProdNum());
+			
 			pstmt.setString(1, dto.getProdName());
 			pstmt.setInt(2, dto.getProdPrice());
 			pstmt.setString(3, dto.getProdDetail());
@@ -295,6 +411,7 @@ public class GoodsDAO extends DataBaseInfo {
 			pstmt.setString(5, dto.getProdSupplyer());
 			pstmt.setString(6, dto.getProdDelFee());
 			pstmt.setString(7, dto.getRecommend());
+			pstmt.setString(8, dto.getProdNum());
 			int i = pstmt.executeUpdate();
 			System.out.println(i + "개가 수정되었습니다.");
 		} catch (SQLException e) {

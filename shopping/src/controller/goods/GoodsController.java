@@ -102,6 +102,30 @@ public class GoodsController extends HttpServlet implements Servlet {
 			RequestDispatcher dispatcher=
 					request.getRequestDispatcher("goods/buyFinished.jsp");
 			dispatcher.forward(request, response);
+		}else if (command.equals("/goodsReview.gd")) {
+			request.setAttribute("prodNum", request.getParameter("prodNum"));
+			request.setAttribute("purchaseNum", request.getParameter("purchaseNum"));
+			RequestDispatcher dispatcher=
+					request.getRequestDispatcher("goods/goodsReview.jsp");
+			dispatcher.forward(request, response);
+		}else if (command.equals("/reviewWrite.gd")) {
+			GoodsReviewPage action =new GoodsReviewPage();
+			action.review(request);
+			response.sendRedirect("purchaseCon.gd");
+			
+			
+		}else if(command.equals("/goodsReviewUpdate.gd")) {
+			GoodsReviewInfoPage action =
+					new GoodsReviewInfoPage();
+			action.reviewInfo(request);
+			RequestDispatcher dispatcher =
+		request.getRequestDispatcher("goods/goodsReviewModify.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/reviewUpdate.gd")) {
+			GoodsReviewWritePage action =
+					new GoodsReviewWritePage();
+			action.reviewUpdate(request);
+			response.sendRedirect("purchaseCon.gd");
 		}
 	}
 
