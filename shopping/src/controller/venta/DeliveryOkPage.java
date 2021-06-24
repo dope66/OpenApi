@@ -1,5 +1,8 @@
 package controller.venta;
 
+
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 
 import model.DAO.SalesDAO;
@@ -16,6 +19,6 @@ public class DeliveryOkPage {
 		 dto.setPurchaseNum(request.getParameter("purchaseNum"));
 		 SalesDAO dao= new SalesDAO();
 		 dao.deliveryCreate(dto);
-		 
+		
 	 }
 }
