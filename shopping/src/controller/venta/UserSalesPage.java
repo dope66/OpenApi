@@ -1,6 +1,5 @@
 package controller.venta;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,9 +11,10 @@ public class UserSalesPage {
 	public void userSales(HttpServletRequest request) {
 		try {
 			request.setCharacterEncoding("utf-8");
-		} catch (UnsupportedEncodingException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		String memId = request.getParameter("memId");
 		SalesDAO dao = new SalesDAO();
 		List<ClientSaleDTO> list = dao.salesList(memId);
