@@ -15,6 +15,13 @@ public class MemberDTO {
 	String memGender;
 	String memAccount;
 	String memEmailCk;
+	public String getPurchaseNum() {
+		return purchaseNum;
+	}
+	public void setPurchaseNum(String purchaseNum) {
+		this.purchaseNum = purchaseNum;
+	}
+	String purchaseNum;
 	public String getMemId() {
 		return memId;
 	}

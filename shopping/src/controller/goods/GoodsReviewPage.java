@@ -24,7 +24,7 @@ public class GoodsReviewPage {
 			dto.setProdNum(multi.getParameter("prodNum"));
 			dto.setPurchaseNum(multi.getParameter("purchaseNum"));
 			dto.setReviewContent(multi.getParameter("reviewContent"));
-			dto.setReviewImage(multi.getFilesystemName("reviewImg"));
+			dto.setReviewImage(multi.getFilesystemName("reviewImage"));
 		} catch (IOException e) {
 			e.printStackTrace();
 			
