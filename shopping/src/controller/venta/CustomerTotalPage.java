@@ -1,5 +1,6 @@
 package controller.venta;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,10 +10,16 @@ import model.DTO.CustomerTotalDTO;
 
 public class CustomerTotalPage {
 	public void customerTotal(HttpServletRequest request) {
+		try {
+			request.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		SalesDAO dao= new SalesDAO();
 		List<CustomerTotalDTO> list=
 				dao.customerTotal();
-		String googleList="[['¾ÆÀÌµð/ÀÌ¸§','ÃÑ±¸¸Å±Ý¾×','ÃÑÈ½¼ö','Æò±Õ±Ý¾×']";
+		String googleList="[['ï¿½ï¿½ï¿½Ìµï¿½/ï¿½Ì¸ï¿½','ï¿½Ñ±ï¿½ï¿½Å±Ý¾ï¿½','ï¿½ï¿½È½ï¿½ï¿½','ï¿½ï¿½Õ±Ý¾ï¿½']";
 		for(CustomerTotalDTO dto : list) {
 			googleList+=",['"+dto.getMemId()+"/"+dto.getMemName()+"',"
 		+dto.getSumPrice()+","+dto.getCount()+","+dto.getAvg()+"]";

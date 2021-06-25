@@ -14,9 +14,9 @@
 		function drawVisualization() { 
 			var data = google.visualization.arrayToDataTable(${googleList});
 			var options = {
-					title : '고객별 판매 현황 ',
-					vAxis: {title: '금액 및 수량'},
-					hAxis: {title: '사용자'}, 
+					title : '고객별 판매 ',
+					vAxis: {title: '금액 / 수량'},
+					hAxis: {title: '이용자'}, 
 					seriesType: 'bars',
 					series: {5: {type: 'line'}}
 				};
