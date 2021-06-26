@@ -15,7 +15,7 @@
 	<servlet>
 		<servlet-name>main</servlet-name>
 		<servlet-class>controller.main.MainController</servlet-class>
-	</servlet>
+	</servlet> 
 	<servlet-mapping>
 		<servlet-name>main</servlet-name>
 		<url-pattern>*.sm</url-pattern>

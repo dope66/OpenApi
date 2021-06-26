@@ -49,6 +49,12 @@ implements Servlet {
 			action.execute(request);
 			response.sendRedirect("venta.vnt");
 			
+		}else if (command.equals("/productTotal.vnt")) {
+			ProductTotalPage action=new ProductTotalPage();
+			action.productTotal(request);
+			RequestDispatcher dispatcher =
+					request.getRequestDispatcher("sales/productTotal.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 	@Override

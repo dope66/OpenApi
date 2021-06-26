@@ -6,10 +6,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import model.DAO.SalesDAO;
-import model.DTO.CustomerTotalDTO;
+import model.DTO.ProductTotalDTO;
 
-public class CustomerTotalPage {
-	public void customerTotal(HttpServletRequest request) {
+public class ProductTotalPage {
+	public void productTotal(HttpServletRequest request) {
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -17,12 +17,12 @@ public class CustomerTotalPage {
 			e.printStackTrace();
 		}
 		SalesDAO dao= new SalesDAO();
-		List<CustomerTotalDTO> list=
-				dao.customerTotal();
-		String googleList="[['아이디/이름','총구매금액','총횟수','평균금액']";
-		for(CustomerTotalDTO dto : list) {
-			googleList+=",['"+dto.getMemId()+"/"+dto.getMemName()+"',"
-		+dto.getSumPrice()+","+dto.getCount()+","+dto.getAvg()+"]";
+		List<ProductTotalDTO> list=
+				dao.productTotal();
+		String googleList="[[''상품번호/상품이름','총구매금액','총횟수','평균금액'']";
+		for(ProductTotalDTO dto : list) {
+			googleList+=",['"+dto.getProdNum()+"/"+dto.getProdName()+"',"
+		+dto.getSumPrice()+","+dto.getCount()+","+dto.getAvgPrice()+"]";
 		}
 		googleList+="]";
 		request.setAttribute("googleList", googleList);

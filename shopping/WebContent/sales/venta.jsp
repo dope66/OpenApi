@@ -9,7 +9,8 @@
 </head>
 <body>
 	판매 리스트 |
-	<a href="customerTotal.vnt" target="_blank">고객별 판매 현황</a> | 상품별 판매 현황 |
+	<a href="customerTotal.vnt" target="_blank">고객별 판매 현황</a> |
+	<a href="productTotal.vnt" target="_blank">상품별 판매 현황</a> |
 	년별 판매 현황 | 월별 판매 현황
 
 	<br />
