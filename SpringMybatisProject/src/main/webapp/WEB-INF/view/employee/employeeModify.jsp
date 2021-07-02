@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
+	<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="empModifyOk.em" method="post" name="frm">
+	<form action="empModifyOk" method="post" name="frm">
 	<input type="hidden" name="employeeId"
 	value="${emp.employeeId }"/>
 		<table border=1 align="center">
@@ -17,7 +18,7 @@
 			</tr>
 			<tr>
 				<td>사원아이디</td>
-				<td>${emp.empUserid }</td>
+				<td>${emp.empUserId }</td>
 			</tr>
 			<tr>
 				<td>이름</td>
@@ -25,7 +26,7 @@
 			</tr>
 			<tr>
 				<td>입사일</td>
-				<td>${emp.hireDate }</td>
+				<td><fmt:formatDate value="${emp.hireDate }" type="date" pattern="yyyy-MM-dd"/> </td>
 			</tr>
 			<tr>
 				<td>연락처</td>
@@ -56,7 +57,7 @@
 				<input type="submit" value="직원정보 수정" />
 				<input type="button" value="직원 삭제"
 				 onclick=
-				 "javascript:location.href='empDelete.em?empId=${emp.employeeId}'"
+				 "javascript:location.href='empDelete?empId=${emp.employeeId}'"
 				/>
 				</td>
 			</tr>

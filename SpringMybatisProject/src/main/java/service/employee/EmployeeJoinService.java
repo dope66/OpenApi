@@ -36,5 +36,5 @@ public class EmployeeJoinService {
 		System.out.println(dto.getPhNumber());
 		System.out.println(dto.getHireDate());
 		employeeRepository.empInsert(dto);
-	}
+	} 
 }

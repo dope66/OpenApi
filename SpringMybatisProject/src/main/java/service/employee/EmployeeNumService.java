@@ -14,5 +14,5 @@ public class EmployeeNumService {
 		employeeCommand.setEmployeeId(empNo);
 		model.addAttribute("employeeCommand",employeeCommand);
 		
-	}
+	} 
 }

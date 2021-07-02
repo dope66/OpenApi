@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import command.EmployeeCommand;
+import service.employee.EmployeeDeleteService;
 import service.employee.EmployeeInfoService;
 import service.employee.EmployeeJoinService;
 import service.employee.EmployeeListService;
 import service.employee.EmployeeNumService;
+import service.employee.EmployeeUpdateService;
 import validator.EmployeeCommandValidator;
 
 @Controller
@@ -27,7 +29,35 @@ public class EmployeeController {
 	EmployeeListService employeeListService;
 	@Autowired
 	EmployeeInfoService employeeInfoService;
+	@Autowired
+	EmployeeUpdateService employeeUpdateService;
+	@Autowired
+	EmployeeDeleteService employeeDeleteService;
 	
+	@RequestMapping("empDelete")
+	public String empDelete(
+			@RequestParam(value="empId") String empId) {
+		employeeDeleteService.empDelete(empId);
+		
+		return "redirect:empList";
+	}
+	@RequestMapping(value="empModifyOk",method = RequestMethod.POST)
+	public String empModifyOk(EmployeeCommand employeeCommand) {
+		employeeUpdateService.empUpdate(employeeCommand);
+		return "redirect:empList";
+		
+	}
+	@RequestMapping("empModify")
+	public String empModify(@RequestParam(value="empId") String empId ,
+			Model model) {
+		
+		employeeInfoService.empInfo(empId, model);
+		
+		return "employee/employeeModify";
+		
+		
+		
+	}
 	
 	@RequestMapping("empInfo")
 	public String empInfo(@RequestParam(value="empId")String empId,

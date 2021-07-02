@@ -27,8 +27,23 @@ EMPLOYEE_ID employeeId,EMP_USERID empUserId,
 
 <select id="empInfo" parameterType="string" resultType="model.EmployeeDTO">
 select <include refid="baseColumn"/>
-	from employees
+	from employees 
 	where EMPLOYEE_ID=#{empId}
 
 </select>
+
+<update id="empUpdate" parameterType="model.EmployeeDTO">
+	update employees
+	set JOB_ID=#{jobId},PH_NUMBER=#{phNumber},
+	OFFICE_NUMBER=#{officeNumber},EMAIL=#{email},
+	EMP_ADDRESS=#{empAddress}
+	where employee_id=#{employeeId}
+</update>
+
+<delete id="empDelete" parameterType="string">
+delete from employees
+where employee_id=#{empId}
+
+</delete>
+
 </mapper>

@@ -15,4 +15,4 @@ public class EmployeeInfoService {
 		EmployeeDTO dto=employeeRepository.empInfo(empId);
 		model.addAttribute("emp",dto);
 	}
-}
+} 
