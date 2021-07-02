@@ -48,4 +48,10 @@
    <bean class="controller.HelloController" />
    <bean id="employeeJoinService"
  		class="service.employee.EmployeeJoinService"/>
+ 		
+ 		<bean id= "employeeListService"
+ 		class ="service.employee.EmployeeListService"></bean>
+ 		<bean id="employeeInfoService"
+ 		class="service.employee.EmployeeInfoService"
+ 		></bean>
 </beans>

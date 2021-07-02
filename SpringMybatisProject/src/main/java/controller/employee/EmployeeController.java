@@ -6,9 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import command.EmployeeCommand;
+import service.employee.EmployeeInfoService;
 import service.employee.EmployeeJoinService;
+import service.employee.EmployeeListService;
 import service.employee.EmployeeNumService;
 import validator.EmployeeCommandValidator;
 
@@ -20,11 +23,25 @@ public class EmployeeController {
 	@Autowired
 	EmployeeJoinService employeeJoinService;
 
+	@Autowired
+	EmployeeListService employeeListService;
+	@Autowired
+	EmployeeInfoService employeeInfoService;
+	
+	
+	@RequestMapping("empInfo")
+	public String empInfo(@RequestParam(value="empId")String empId,
+			Model model) {
+		employeeInfoService.empInfo(empId, model);
+		
+		return "employee/employeeInfo";
+	}
 	@RequestMapping(value = "empList", method = RequestMethod.GET)
-	public String empList() {
+	public String empList(Model model) {
+		employeeListService.empList(model);
 		return "employee/employeeList";
 	}
-
+	
 	@RequestMapping(value = "empRegist", method = RequestMethod.GET)
 	public String empRegist(Model model, EmployeeCommand employeeCommand) {
 		employeeNumService.empNo(model, employeeCommand);
