@@ -4,10 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>agree.jsp</title>
 </head>
 <body>
-<a href="register/agree">회원가입</a>
-<a href="emp/empList">직원리스트 </a>
+<form action="memRegist" method="post">
+	<input type="checkbox" name="agree" >동의<br />
+	<input type="submit" value="다음" />
+</form>
 </body>
 </html>

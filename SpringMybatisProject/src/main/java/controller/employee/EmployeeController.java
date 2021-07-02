@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import command.EmployeeCommand;
+import model.AuthInfoDTO;
 import service.employee.EmployeeDeleteService;
 import service.employee.EmployeeInfoService;
 import service.employee.EmployeeJoinService;
 import service.employee.EmployeeListService;
 import service.employee.EmployeeNumService;
 import service.employee.EmployeeUpdateService;
+import service.main.LoginService;
 import validator.EmployeeCommandValidator;
 
 @Controller
@@ -24,7 +26,6 @@ public class EmployeeController {
 	EmployeeNumService employeeNumService;
 	@Autowired
 	EmployeeJoinService employeeJoinService;
-
 	@Autowired
 	EmployeeListService employeeListService;
 	@Autowired
@@ -33,6 +34,7 @@ public class EmployeeController {
 	EmployeeUpdateService employeeUpdateService;
 	@Autowired
 	EmployeeDeleteService employeeDeleteService;
+
 	
 	@RequestMapping("empDelete")
 	public String empDelete(
@@ -54,11 +56,7 @@ public class EmployeeController {
 		employeeInfoService.empInfo(empId, model);
 		
 		return "employee/employeeModify";
-		
-		
-		
 	}
-	
 	@RequestMapping("empInfo")
 	public String empInfo(@RequestParam(value="empId")String empId,
 			Model model) {
@@ -78,7 +76,8 @@ public class EmployeeController {
 
 		return "employee/employeeForm";
 	}
-
+	@Autowired
+	LoginService loginService;
 	@RequestMapping(value = "empJoin", method = RequestMethod.POST)
 	public String empJoin(EmployeeCommand employeeCommand, Errors errors, Model model) {
 		System.out.println("empJoin :" + employeeCommand.getEmpName());
@@ -86,7 +85,12 @@ public class EmployeeController {
 		if (errors.hasErrors()) {
 			return "employee/employeeForm";
 		}
-
+		AuthInfoDTO authInfo=loginService.logIn(employeeCommand.getEmpUserId(),
+				employeeCommand.getEmpPw());
+		if(authInfo!=null) {
+			errors.rejectValue("empUserId", "duplicate");
+			return "employee/employeeForm";
+		}
 		employeeJoinService.empInsert(employeeCommand);
 		return "redirect:empList";
 	}
