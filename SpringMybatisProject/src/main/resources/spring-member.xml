@@ -9,4 +9,7 @@
 			
 			
 			<bean class="controller.member.MemberController"></bean>
+	
+ 		<bean id="memberRepository"
+ 		class="repository.MemberRepository"></bean>
 			</beans>

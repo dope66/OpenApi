@@ -59,5 +59,6 @@
  		
  		<bean id ="EmployeeDeleteService"
  		class="service.employee.EmployeeDeleteService"></bean>
- 	
+ 		 <bean id="memberJoinService"
+ 		class="service.member.MemberJoinService"/>
 </beans>

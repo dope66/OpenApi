@@ -92,7 +92,7 @@
 				<input type="submit" value="가입 완료" />
 				<input type="reset" value="취소" />
 				<input type="button"  value="가입 안함" 
-					onclick="javascript:location.href='main.sm'" />
+					onclick="javascript:location.href='main'" />
 			</td></tr>
 	</table>
 </form>

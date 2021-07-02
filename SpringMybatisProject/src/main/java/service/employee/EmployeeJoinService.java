@@ -25,16 +25,7 @@ public class EmployeeJoinService {
 		dto.setOfficeNumber(employeeCommand.getOfficeNumber());
 		dto.setPhNumber(employeeCommand.getPhNumber());
 		dto.setHireDate(employeeCommand.getHireDate());
-		System.out.println(dto.getEmail());
-		System.out.println(dto.getEmpAddress());
-		System.out.println(dto.getEmployeeId());
-		System.out.println(dto.getEmpName());
-		System.out.println(dto.getEmpPw());
-		System.out.println(dto.getEmpUserId());
-		System.out.println(dto.getJobId());
-		System.out.println(dto.getOfficeNumber());
-		System.out.println(dto.getPhNumber());
-		System.out.println(dto.getHireDate());
+	
 		employeeRepository.empInsert(dto);
 	} 
 }
