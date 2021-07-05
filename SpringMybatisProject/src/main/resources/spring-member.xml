@@ -13,4 +13,5 @@
 	<bean id="memberRepository" class="repository.MemberRepository"></bean>
 	<bean id="memberJoinService"
 		class="service.member.MemberJoinService"></bean>
+		<bean class="controller.member.MemberInfoController"/>
 </beans>

@@ -13,7 +13,17 @@ insert into member(MEM_ID,MEM_PW,MEM_ADDRESS,MEM_NAME,MEM_PHONE,
 	#{postNumber},#{detailAdd})
 
 </insert>
+  <select id="memlist" resultType="model.MemberDTO">
+  select MEM_ID memId,MEM_PW memPw,MEM_ADDRESS memAddress,
+  MEM_NAME memName,MEM_PHONE memPhone,
+	MEM_BIRTH memBirth,MEM_GENDER memGender,
+	MEM_ACCOUNT memAccount,MEM_EMAIL memEmail,
+	MEM_EMAIL_CK memEmailCk ,POST_NUMBER postNumber,DETAIL_ADD detailAdd
+  from member
+
   
+  
+  </select>
   
   
   
