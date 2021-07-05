@@ -11,8 +11,8 @@ public class MemberRepository {
  String namespace ="mappers.memberMapper";
  String statement;
  
- public void memInsert(MemberDTO dto) {
-	 statement=namespace+".memInsert";
+ public void memJoin(MemberDTO dto) {
+	 statement=namespace+".memJoin";
 	 int i=sqlSession.insert(statement,dto);
 	 System.out.println(i+"개가 저장되었습니다.");
  }

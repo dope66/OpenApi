@@ -2,6 +2,8 @@ package command;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class MemberCommand {
 String memId;
 String memPw;
@@ -9,6 +11,7 @@ String memPwCon;
 String memAddress;
 String memName;
 String memPhone;
+@DateTimeFormat(pattern = "yyyy-MM-dd")
 Date memBirth;
 String memGender;
 String memAccount;

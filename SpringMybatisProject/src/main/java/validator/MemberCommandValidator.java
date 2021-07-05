@@ -2,21 +2,31 @@ package validator;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
 
 import command.MemberCommand;
 
-public class MemberCommandValidator {
-	public boolean supports(Class<?> clazz) {
-		return false;
+public class MemberCommandValidator implements Validator{
+	public boolean supports(Class<?> clazz) {//내가 받아온 커맨드가 맞냐? 
+		return false; 
 	}
 	public void validate(Object target, Errors errors)
 	{
 		MemberCommand memberCommand =(MemberCommand)target;
-		if(!memberCommand.isMemPwEqualsMemPwCon()) {
-			errors.rejectValue("memPwCon", "nomatch");
+		if(memberCommand.getMemPw() !=null&&memberCommand.getMemPwCon()!=null) {
+			
+			 if(!memberCommand.isMemPwEqualsMemPwCon()) { errors.rejectValue("memPwCon",
+			 "nomatch"); }
+			 
 		}
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "memId", "required");
+		
+		ValidationUtils.rejectIfEmpty(errors, "memId", "required");
 		ValidationUtils.rejectIfEmpty(errors, "memPw", "required");
+		
+		ValidationUtils.rejectIfEmpty(errors, "memPwCon", "required");
+		ValidationUtils.rejectIfEmpty(errors, "detailAdd", "required");
+		ValidationUtils.rejectIfEmpty(errors, "postNumber", "required");
+		
 		ValidationUtils.rejectIfEmpty(errors, "memAddress", "required");
 		ValidationUtils.rejectIfEmpty(errors, "memName", "required");
 		ValidationUtils.rejectIfEmpty(errors, "memPhone", "required");

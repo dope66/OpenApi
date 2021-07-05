@@ -13,7 +13,7 @@ MemberRepository memberRepository;
 
 @Autowired
 BCryptPasswordEncoder bcryptPasswordEncoder; 
-public void memInsert(MemberCommand memberCommand) {
+public void memJoin(MemberCommand memberCommand) {
 	MemberDTO dto= new MemberDTO();
 	dto.setDetailAdd(memberCommand.getDetailAdd());
 	dto.setMemAccount(memberCommand.getMemAccount());
@@ -28,7 +28,7 @@ public void memInsert(MemberCommand memberCommand) {
 	dto.setMemPw(bcryptPasswordEncoder.encode(memberCommand.getMemPw()));
 	dto.setPostNumber(memberCommand.getPostNumber());
 	
-	memberRepository.memInsert(dto);
+	memberRepository.memJoin(dto);
 	
 }
 
