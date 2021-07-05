@@ -14,4 +14,8 @@
 	<bean id="memberJoinService"
 		class="service.member.MemberJoinService"></bean>
 		<bean class="controller.member.MemberInfoController"/>
+		<bean id="memberUpdateService"
+		class="service.member.MemberUpdateService"></bean>
+		<bean id="memberDeleteService"
+		class="service.member.MemberDeleteService"></bean>
 </beans>

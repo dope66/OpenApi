@@ -11,9 +11,9 @@ import repository.MemberRepository;
 public class MemberListService {
 	@Autowired
 	MemberRepository memberRepository;
- public void memList(Model model)
+ public void memList(Model model,String memId)
  {
-	 List<MemberDTO> list=memberRepository.memList();
+	 List<MemberDTO> list=memberRepository.memList(memId);
 	 model.addAttribute("lists",list);
  }
 }
