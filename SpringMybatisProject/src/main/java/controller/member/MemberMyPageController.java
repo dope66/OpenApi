@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -35,19 +36,22 @@ MemberSujungService memberSujungService;
 	}
 
 	@RequestMapping("memSujung")
-
-	public String memSujung(HttpSession session, Model model) {
+	public String memSujung(HttpSession session,Model model,
+			@ModelAttribute MemberCommand memberCommand) {
 		memberInfoService.memInfo(model, session);
 		return "member/memSujung";
 	}
 
-	@RequestMapping("memSujungOk")
-	public String memSujungOk(
-		MemberCommand memberCommand,HttpSession session, Model model,Errors errors) {
-		new MemberCommandValidator().validate(memberCommand, errors);
-		memberInfoService.memInfo(model, session);
-		return "member/memDetail";
-	}
-	
 
+	
+	@RequestMapping(value="memSujungOk",
+			method = RequestMethod.POST)
+	public String memUpdate(MemberCommand memberCommand,
+			Errors errors, HttpSession session) {
+		memberSujungService.memUpdate(session,memberCommand,errors);
+		if(errors.hasErrors()) {
+			return "member/memSujung";
+		}
+		return "redirect:memDetail";
+	}
 }

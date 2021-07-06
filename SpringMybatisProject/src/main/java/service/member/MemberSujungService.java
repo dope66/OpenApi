@@ -17,10 +17,11 @@ public class MemberSujungService {
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	public void memSujungOk(MemberCommand memberCommand, Errors errors, HttpSession session) {
+	public void memUpdate(HttpSession session, MemberCommand memberCommand, Errors errors) {
 		AuthInfoDTO authInfo = (AuthInfoDTO) session.getAttribute("authInfo");
-		String memPw = authInfo.getUserPw();
-		if (bCryptPasswordEncoder.matches(memPw, authInfo.getUserPw())) {
+		String memId = authInfo.getUserId();
+		if (bCryptPasswordEncoder.matches(memberCommand.getMemPw(),
+				authInfo.getUserPw())) {
 			session.setAttribute("authInfo", authInfo);
 			MemberDTO dto = new MemberDTO();
 			dto.setDetailAdd(memberCommand.getDetailAdd());
@@ -31,7 +32,6 @@ public class MemberSujungService {
 			dto.setMemPhone(memberCommand.getMemPhone());
 			dto.setPostNumber(memberCommand.getPostNumber());
 			dto.setMemId(memberCommand.getMemId());
-			dto.setMemPw(memberCommand.getMemPw());
 			memberRepository.memUpdate(dto);
 		} else {
 			errors.rejectValue("memPw", "notPw");

@@ -12,10 +12,6 @@ public class MemberRepository {
  SqlSession sqlSession;
  String namespace ="mappers.memberMapper";
  String statement;
- public void memSujungOk(MemberDTO dto) {
-	 statement=namespace+".memSujungOk";
-	 sqlSession.update(statement,dto);
- }
 
  public MemberDTO memInfo(String memId)
  {
