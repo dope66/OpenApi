@@ -12,7 +12,14 @@ public class MemberRepository {
  SqlSession sqlSession;
  String namespace ="mappers.memberMapper";
  String statement;
-
+ public void memDelete(String memId) {
+		statement = namespace +".memDelete";
+		sqlSession.delete(statement, memId);
+	}
+public void memPwUpdate(MemberDTO dto) {
+	statement=namespace+".memPwUpdate";
+	sqlSession.update(statement,dto);
+}
  public MemberDTO memInfo(String memId)
  {
 	 statement=namespace+".memInfo";

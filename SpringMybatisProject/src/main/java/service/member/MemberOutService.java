@@ -7,19 +7,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 
 import model.AuthInfoDTO;
+import repository.MemberRepository;
 
-
-public class MemberPwChangeService {
+public class MemberOutService {
 	@Autowired
 	BCryptPasswordEncoder bcryptPasswordEncoder;
-	public String memPw(String memPw,HttpSession session,Model model) {
-		AuthInfoDTO authInfo = 
+	@Autowired
+	MemberRepository memberRepository; 
+	public String memDelete(String memPw, HttpSession session,
+			Model model) {
+		AuthInfoDTO authInfo =
 				(AuthInfoDTO)session.getAttribute("authInfo");
 		if(bcryptPasswordEncoder.matches(memPw, authInfo.getUserPw())) {
-			return "member/pwChangeOk";
+			memberRepository.memDelete(authInfo.getUserId());
+			return "redirect:/login/logOut";
 		}else {
-			model.addAttribute("pwFail1", "비밀번호가 틀립니다");
-			return "member/pwChange";
+			model.addAttribute("pwFail", "비밀번호가 틀립니다.");
+			return "member/outPw";
 		}
 	}
 }
