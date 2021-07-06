@@ -34,7 +34,7 @@ public class MemberSujungService {
 			dto.setMemPw(memberCommand.getMemPw());
 			memberRepository.memUpdate(dto);
 		} else {
-			errors.rejectValue("userPw", "notPw");
+			errors.rejectValue("memPw", "notPw");
 		}
 	}
 
