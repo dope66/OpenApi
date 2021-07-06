@@ -10,5 +10,5 @@
 	<bean id = "loginService" class="service.main.LoginService"/>
 	<bean id = "logInRepository" class="repository.LogInRepository"/>
 	
-	
+	<bean class ="controller.main.LogInController"/>
 </beans>
