@@ -28,8 +28,6 @@ String detailAdd;
 public boolean isMemPwEqualsMemPwCon() {
 	return memPw.equals(memPwCon);
 }
-
-
 public String getMemId() {
 	return memId;
 }

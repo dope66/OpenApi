@@ -9,33 +9,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import command.LogInCommand;
-import model.AuthInfoDTO;
 import service.main.LoginService;
 import validator.LogInCommandValidator;
 
-@Controller
-
+@Controller("login")
 public class LogInController {
-	@RequestMapping(value="login",method = RequestMethod.GET)
+	@RequestMapping( method = RequestMethod.GET)
 	public String main() {
 		return "redirect:/";
 	}
-@Autowired
-LoginService loginService; 
-	@RequestMapping(value="login",method = RequestMethod.POST)
+	@Autowired
+	LoginService loginService; 
+	@RequestMapping( method = RequestMethod.POST)
 	public String login(LogInCommand logInCommand, Errors errors,
 			HttpSession session) {
-		new LogInCommandValidator().validate(logInCommand,errors);
+		new LogInCommandValidator().validate(logInCommand, errors);
 		if(errors.hasErrors()) {
 			return "main/main";
 		}
-		loginService.logIn1(logInCommand ,errors, session);
-		
+		loginService.logIn1(logInCommand, errors, session); 
 		if(errors.hasErrors()) {
 			return "main/main";
 		}
+		return "redirect:/";		
+	}
+	@RequestMapping("logOut")
+	public String logOut(HttpSession session) {
+		session.invalidate();
 		return "redirect:/";
 	}
+	
 	
 	
 	

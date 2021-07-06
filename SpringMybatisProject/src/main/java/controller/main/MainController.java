@@ -10,7 +10,7 @@ import command.LogInCommand;
 public class MainController {
 @RequestMapping("main")
 public String aaa(
-		@ModelAttribute
+		@ModelAttribute(value="logInCommand")
 		LogInCommand logInCommand) {
 	return "main/main";
 }

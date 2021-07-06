@@ -53,5 +53,10 @@ public class MemberInfoController {
 		return "member/memberModify";
 
 	}
+	@RequestMapping("member/pwChange")
+	public String memPwChange() {
+		return null;
+		
+	}
 	
 }

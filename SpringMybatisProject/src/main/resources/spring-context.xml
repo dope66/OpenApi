@@ -60,4 +60,13 @@
  		<bean id ="EmployeeDeleteService"
  		class="service.employee.EmployeeDeleteService"></bean>
  		<bean id="memberListService " class="service.member.MemberListService"></bean>
+ 		
+ 		<bean id="memberInfoService " class="service.member.MemberInfoService"></bean>
+ 	
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
 </beans>
