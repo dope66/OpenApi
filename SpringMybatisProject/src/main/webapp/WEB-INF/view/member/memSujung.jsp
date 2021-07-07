@@ -63,19 +63,19 @@
 	<form:hidden path="memId" />
 	<form:hidden path="memName" />
 	<input type="hidden" name="memBirth" 
-	value="<fmt:formatDate value="${dto.memBirth }" type="date" 
+	value="<fmt:formatDate value="${memberCommand.memBirth }" type="date" 
 			pattern="yyyy-MM-dd"/>"/>
 	<form:hidden path="memGender" />
 	<table border = 1 align="center">
 		<tr><td>아이디</td>
-			<td> ${dto.memId } </td></tr>
+			<td> ${memberCommand.memId } </td></tr>
 		<tr><td>비밀번호</td>
 			<td>
 				<input type="password" name="memPw" />
 				<form:errors path = "memPw"/>
 			</td></tr>
 		<tr><td>이름</td>
-			<td> ${dto.memName }  </td></tr>
+			<td> ${memberCommand.memName }  </td></tr>
 		<tr><td>우편번호</td>
 			<td><form:input path="postNumber" id="sample4_postcode" readonly="readonly" /></td></tr>
 		<tr><td>주소</td>
@@ -91,20 +91,20 @@
 			<td><form:input path="memEmail" /></td></tr>
 		<tr><td>생년월일</td>
 			<td>
-		<fmt:formatDate value="${dto.memBirth }" type="date" 
+		<fmt:formatDate value="${memberCommand.memBirth }" type="date" 
 			pattern="yyyy-MM-dd"/></td></tr>
 		<tr><td>성별</td>
-			<td><c:if test="${dto.memGender == 'M'}">남자</c:if>
-				<c:if test="${dto.memGender == 'F'}">여자</c:if>
+			<td><c:if test="${memberCommand.memGender == 'M'}">남자</c:if>
+				<c:if test="${memberCommand.memGender == 'F'}">여자</c:if>
 			</td></tr>
 		<tr><td>계좌번호</td>
 			<td><form:input path="memAccount" /></td></tr>
 		<tr><td>이메일 수신여부</td>
 			<td><input type="radio" name="memEmailCk" value="Y"
-				 	<c:if test="${dto.memEmailCk == 'Y'}">checked</c:if> 
+				 	<c:if test="${memberCommand.memEmailCk == 'Y'}">checked</c:if> 
 				 >예			
 				<input type="radio" name="memEmailCk" value="N" 
-					<c:if test="${dto.memEmailCk == 'N'}">checked</c:if> 
+					<c:if test="${memberCommand.memEmailCk == 'N'}">checked</c:if> 
 				>아니오</td></tr>
 		<tr><td colspan="2" align="center">
 				<input type="submit" value="수정 완료" />

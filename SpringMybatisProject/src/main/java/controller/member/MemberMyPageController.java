@@ -32,6 +32,7 @@ public class MemberMyPageController {
 	MemberPwUpdateService memberPwUpdateService;
 @Autowired
 MemberOutService memberOutService; 
+
 	@RequestMapping("myPage")
 	public String myPage(HttpSession session, Model model) {
 
@@ -52,10 +53,9 @@ MemberOutService memberOutService;
 		return "member/memSujung";
 	}
 
-
-	
 	@RequestMapping(value="memSujungOk",
 			method = RequestMethod.POST)
+	//에러는 항상 커맨드 객체 뒤에다가 둬야된다 
 	public String memUpdate(MemberCommand memberCommand,
 			Errors errors, HttpSession session) {
 		memberSujungService.memUpdate(session,memberCommand,errors);

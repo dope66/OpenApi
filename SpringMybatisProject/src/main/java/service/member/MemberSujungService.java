@@ -22,7 +22,6 @@ public class MemberSujungService {
 		String memId = authInfo.getUserId();
 		if (bCryptPasswordEncoder.matches(memberCommand.getMemPw(),
 				authInfo.getUserPw())) {
-			session.setAttribute("authInfo", authInfo);
 			MemberDTO dto = new MemberDTO();
 			dto.setDetailAdd(memberCommand.getDetailAdd());
 			dto.setMemAccount(memberCommand.getMemAccount());
@@ -31,7 +30,7 @@ public class MemberSujungService {
 			dto.setMemEmailCk(memberCommand.getMemEmailCk());
 			dto.setMemPhone(memberCommand.getMemPhone());
 			dto.setPostNumber(memberCommand.getPostNumber());
-			dto.setMemId(memberCommand.getMemId());
+			dto.setMemId(memId);
 			memberRepository.memUpdate(dto);
 		} else {
 			errors.rejectValue("memPw", "notPw");

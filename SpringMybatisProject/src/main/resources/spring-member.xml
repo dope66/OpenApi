@@ -12,21 +12,21 @@
 	<bean class="controller.member.MemberInfoController" />
 	<bean class="controller.member.MemberMyPageController" />
 
-	<bean id="memberRepository" class="repository.MemberRepository"></bean>
+	<bean id="memberRepository" class="repository.MemberRepository"/>
 	<bean id="memberJoinService"
-		class="service.member.MemberJoinService"></bean>
+		class="service.member.MemberJoinService"/>
 
 	<bean id="memberUpdateService"
-		class="service.member.MemberUpdateService"></bean>
+		class="service.member.MemberUpdateService"/>
 	<bean id="memberDeleteService"
-		class="service.member.MemberDeleteService"></bean>
-
-	<bean id="memberSujung" class="service.member.MemberSujungService" />
+		class="service.member.MemberDeleteService"/>
 	<bean id="memberInfoService "
-		class="service.member.MemberInfoService"></bean>
+		class="service.member.MemberInfoService"/>
+	<bean id="memberSujung" class="service.member.MemberSujungService" />
+
 
 	<bean id="memberListService "
-		class="service.member.MemberListService"></bean>
+		class="service.member.MemberListService"/>
 	<bean id="memberPwChangeService"
 		class="service.member.MemberPwChangeService" />
 	<bean id="memberPwUpdateService"
