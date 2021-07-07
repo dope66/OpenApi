@@ -12,15 +12,16 @@ import command.LogInCommand;
 import service.main.LoginService;
 import validator.LogInCommandValidator;
 
-@Controller("login")
+@Controller
+@RequestMapping("login")
 public class LogInController {
-	@RequestMapping( method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public String main() {
 		return "redirect:/";
 	}
 	@Autowired
 	LoginService loginService; 
-	@RequestMapping( method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public String login(LogInCommand logInCommand, Errors errors,
 			HttpSession session) {
 		new LogInCommandValidator().validate(logInCommand, errors);
@@ -38,12 +39,4 @@ public class LogInController {
 		session.invalidate();
 		return "redirect:/";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 }

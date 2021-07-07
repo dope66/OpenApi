@@ -10,4 +10,19 @@
 	class="service.employee.EmployeeNumService"/>
 	<bean id="employeeRepository"
 	class="repository.EmployeeRepository"/>
+	
+	 <bean class="controller.HelloController" />
+   <bean id="employeeJoinService"
+ 		class="service.employee.EmployeeJoinService"/>
+ 		
+ 		<bean id= "employeeListService"
+ 		class ="service.employee.EmployeeListService"></bean>
+ 		<bean id="employeeInfoService"
+ 		class="service.employee.EmployeeInfoService"
+ 		></bean>
+ 		<bean id ="EmployeeUpdateService"
+ 		class="service.employee.EmployeeUpdateService"></bean>
+ 		
+ 		<bean id ="EmployeeDeleteService"
+ 		class="service.employee.EmployeeDeleteService"></bean>
 </beans>

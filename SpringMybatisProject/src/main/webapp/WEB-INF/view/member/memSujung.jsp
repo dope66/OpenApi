@@ -1,17 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
- <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title> 
+<title>회원 수정</title>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function sample4_execDaumPostcode() {
-        new daum.Postcode({ 
+        new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
                 // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
@@ -58,49 +59,52 @@
 </head>
 <body>
 <form:form action="memSujungOk" method="post" name="frm" 
-modelAttribute="memberCommand"> 
-<form:hidden path="memId"/>
-<form:hidden path="memPw"/> 
-
+	modelAttribute="memberCommand">
+	<form:hidden path="memId" />
+	<form:hidden path="memName" />
+	<input type="hidden" name="memBirth" 
+	value="<fmt:formatDate value="${memberCommand.memBirth }" type="date" 
+			pattern="yyyy-MM-dd"/>"/>
+	<form:hidden path="memGender" />
 	<table border = 1 align="center">
 		<tr><td>아이디</td>
-			<td> ${dto.memId } </td></tr>
-			<tr><td>비밀번호</td>
-				<td><form:password path="memPw"/>
-				<form:errors path="memPw"/>
-				</td></tr>
+			<td> ${memberCommand.memId } </td></tr>
+		<tr><td>비밀번호</td>
+			<td>
+				<input type="password" name="memPw" />
+				<form:errors path = "memPw"/>
+			</td></tr>
 		<tr><td>이름</td>
-			<td> ${dto.memName }  </td></tr>
+			<td> ${memberCommand.memName }  </td></tr>
 		<tr><td>우편번호</td>
-			<td><input type="text" name="postNumber" 
-			id="sample4_postcode" value="${dto.postNumber }"></td></tr>
+			<td><form:input path="postNumber" id="sample4_postcode" readonly="readonly" /></td></tr>
 		<tr><td>주소</td>
-			<td><input type="text" name="memAddress" 
-				id="sample4_roadAddress" 
-				value="${dto.memAddress }" size="30">
+			<td><form:input path ="memAddress" 
+				id="sample4_roadAddress"  size="30"  readonly="readonly" />
 				<a href="javascript:sample4_execDaumPostcode();">주소 검색</a>
 			</td></tr>
 		<tr><td>상세주소</td>
-			<td><input type="text" name="detailAdd" 
-				value="${dto.detailAdd }"></td></tr>
+			<td><form:input path="detailAdd" /></td></tr>
 		<tr><td>연락처</td>
-			<td><form:input path="memPhone"/></td></tr>
+			<td><form:input path="memPhone" /></td></tr>
 		<tr><td>이메일</td>
-			<td><form:input path="memEmail"/></td></tr>
+			<td><form:input path="memEmail" /></td></tr>
 		<tr><td>생년월일</td>
-			<td><form:input path="memBirth"/></td></tr>
+			<td>
+		<fmt:formatDate value="${memberCommand.memBirth }" type="date" 
+			pattern="yyyy-MM-dd"/></td></tr>
 		<tr><td>성별</td>
-			<td><c:if test="${dto.memGender == 'M'}">남자</c:if>
-				<c:if test="${dto.memGender == 'F'}">여자</c:if>
+			<td><c:if test="${memberCommand.memGender == 'M'}">남자</c:if>
+				<c:if test="${memberCommand.memGender == 'F'}">여자</c:if>
 			</td></tr>
 		<tr><td>계좌번호</td>
-			<td><form:input path="memAccount"/></td></tr>
+			<td><form:input path="memAccount" /></td></tr>
 		<tr><td>이메일 수신여부</td>
 			<td><input type="radio" name="memEmailCk" value="Y"
-				 	<c:if test="${dto.memEmailCk == 'Y'}">checked</c:if> 
+				 	<c:if test="${memberCommand.memEmailCk == 'Y'}">checked</c:if> 
 				 >예			
 				<input type="radio" name="memEmailCk" value="N" 
-					<c:if test="${dto.memEmailCk == 'N'}">checked</c:if> 
+					<c:if test="${memberCommand.memEmailCk == 'N'}">checked</c:if> 
 				>아니오</td></tr>
 		<tr><td colspan="2" align="center">
 				<input type="submit" value="수정 완료" />

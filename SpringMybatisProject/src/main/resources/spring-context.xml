@@ -45,23 +45,9 @@
          </property>
          <property name="defaultEncoding" value="UTF-8" />
       </bean>
-   <bean class="controller.HelloController" />
-   <bean id="employeeJoinService"
- 		class="service.employee.EmployeeJoinService"/>
+  
  		
- 		<bean id= "employeeListService"
- 		class ="service.employee.EmployeeListService"></bean>
- 		<bean id="employeeInfoService"
- 		class="service.employee.EmployeeInfoService"
- 		></bean>
- 		<bean id ="EmployeeUpdateService"
- 		class="service.employee.EmployeeUpdateService"></bean>
- 		
- 		<bean id ="EmployeeDeleteService"
- 		class="service.employee.EmployeeDeleteService"></bean>
- 		<bean id="memberListService " class="service.member.MemberListService"></bean>
- 		
- 		<bean id="memberInfoService " class="service.member.MemberInfoService"></bean>
+ 	
  	
  		
  		

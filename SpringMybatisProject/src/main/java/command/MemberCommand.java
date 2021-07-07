@@ -18,6 +18,13 @@ String memAccount;
 String memEmail;
 String memEmailCk;
 String postNumber;
+String oldPw;
+public String getOldPw() {
+	return oldPw;
+}
+public void setOldPw(String oldPw) {
+	this.oldPw = oldPw;
+}
 public String getMemPwCon() {
 	return memPwCon;
 }

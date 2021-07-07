@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import command.MemberCommand;
 import model.AuthInfoDTO;
 import service.main.LoginService;
+import service.member.MemberEmailCkService;
 import service.member.MemberJoinService;
 import validator.MemberCommandValidator;
 
@@ -19,40 +20,51 @@ import validator.MemberCommandValidator;
 @RequestMapping("register")
 public class MemberController {
 	@Autowired
+	MemberEmailCkService memberEmailCkService;
+
+	@RequestMapping("memberMail")
+	public String memberMail(@RequestParam(value = "num") String num, @RequestParam(value = "reciver") String reciver) {
+		int i = memberEmailCkService.emailCk(reciver, num);
+		if (i > 0) {
+			return "member/success";
+		} else {
+			return "member/fail";
+		}
+
+	}
+
+	@Autowired
 	MemberJoinService memberJoinService;
-	
+
 	@RequestMapping("agree")
 	public String agree() {
 		return "member/agree";
 	}
 
-@RequestMapping(value="memRegist",method = RequestMethod.POST)
-public String memRegist(
-		@RequestParam (value="agree",defaultValue = "false")
-		Boolean agree,
-		@ModelAttribute(value="memberCommand")MemberCommand memberCommand,Model model) {
-	if(!agree)
-	{
-		return "member/agree";
-	}
-	return "member/memberForm";
-}
-@Autowired
-LoginService loginService;
-@RequestMapping(value="memJoin",method = RequestMethod.POST)
-public String memJoin(MemberCommand memberCommand ,Errors errors,Model model) {
-	new MemberCommandValidator().validate(memberCommand,errors);
-	if(errors.hasErrors()) {
+	@RequestMapping(value = "memRegist", method = RequestMethod.POST)
+	public String memRegist(@RequestParam(value = "agree", defaultValue = "false") Boolean agree,
+			@ModelAttribute(value = "memberCommand") MemberCommand memberCommand, Model model) {
+		if (!agree) {
+			return "member/agree";
+		}
 		return "member/memberForm";
 	}
-	AuthInfoDTO authInfo= loginService.logIn(memberCommand.getMemId(),
-			memberCommand.getMemPw());
-	if(authInfo!=null)
-	{
-		errors.rejectValue("memId", "duplicate");
-		return "member/memberForm";
+
+	@Autowired
+	LoginService loginService;
+
+	@RequestMapping(value = "memJoin", method = RequestMethod.POST)
+	public String memJoin(MemberCommand memberCommand, Errors errors, Model model) {
+		new MemberCommandValidator().validate(memberCommand, errors);
+		if (errors.hasErrors()) {
+			return "member/memberForm";
+		}
+		AuthInfoDTO authInfo = loginService.logIn(memberCommand.getMemId(), memberCommand.getMemPw());
+		if (authInfo != null) {
+			errors.rejectValue("memId", "duplicate");
+			return "member/memberForm";
+		}
+		memberJoinService.memJoin(memberCommand);
+		return "redirect:/";
 	}
-	memberJoinService.memJoin(memberCommand);
-	return "redirect:/";
-}
 }
