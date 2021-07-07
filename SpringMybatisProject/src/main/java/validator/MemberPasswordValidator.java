@@ -13,7 +13,8 @@ public class MemberPasswordValidator implements Validator {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	// 	object target으로 만든 이유는 모든데이터를 저장할수있는 자료형이고
+	//	자료가뭔지 몰라 시벌 그럼 넌 object야 
 	@Override
 	public void validate(Object target, Errors errors) {
 

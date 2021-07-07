@@ -1,58 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
 			http://www.springframework.org/schema/beans
 			http://www.springframework.org/schema/beans/spring-beans.xsd
-			">
-
-
-
+			"
+>
 	<bean class="controller.member.MemberController"></bean>
+	<bean id = "memberJoinService" 
+		class="service.member.MemberJoinService" />
+	<bean id = "memberRepository" class="repository.MemberRepository" />
 	<bean class="controller.member.MemberInfoController" />
+	<bean id = "memberListService" class="service.member.MemberListService" />
+	<bean id = "memberUpdateService" class="service.member.MemberUpdateService" />
+	<bean id = "memberDeleteService" 
+				class="service.member.MemberDeleteService" />
+				
 	<bean class="controller.member.MemberMyPageController" />
-
-	<bean id="memberRepository" class="repository.MemberRepository"/>
-	<bean id="memberJoinService"
-		class="service.member.MemberJoinService"/>
-
-	<bean id="memberUpdateService"
-		class="service.member.MemberUpdateService"/>
-	<bean id="memberDeleteService"
-		class="service.member.MemberDeleteService"/>
-	<bean id="memberInfoService "
-		class="service.member.MemberInfoService"/>
-	<bean id="memberSujung" class="service.member.MemberSujungService" />
-
-
-	<bean id="memberListService "
-		class="service.member.MemberListService"/>
-	<bean id="memberPwChangeService"
-		class="service.member.MemberPwChangeService" />
-	<bean id="memberPwUpdateService"
-		class="service.member.MemberPwUpdateService" />
+	<bean id = "memberInfoService" 
+				class="service.member.MemberInfoService" />
+	<bean id = "memberSujungService" 
+				class="service.member.MemberSujungService" />
+	<bean id = "memberPwChangeService" 
+				class="service.member.MemberPwChangeService" />
+	<bean id = "memberPwUpdateService" 
+				class="service.member.MemberPwUpdateService" />
 	<bean id="memberOutService"
 		class="service.member.MemberOutService" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	<bean id="memberEmailCkService"
+		class="service.member.MemberEmailCkService" />
+	
+	
 </beans>

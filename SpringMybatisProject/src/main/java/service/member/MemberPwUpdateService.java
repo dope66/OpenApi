@@ -20,8 +20,10 @@ public class MemberPwUpdateService {
 			Errors errors,HttpSession session) {
 		AuthInfoDTO authInfo =
 				(AuthInfoDTO)session.getAttribute("authInfo");
+		MemberDTO mem= memberRepository.memInfo(authInfo.getUserId());
+		
 		if(bcryptPasswordEncoder.matches(memberCommand.getOldPw(), 
-				authInfo.getUserPw())) {
+				mem.getMemPw())) {
 			MemberDTO dto = new MemberDTO();
 			dto.setMemId(authInfo.getUserId());
 			dto.setMemPw(bcryptPasswordEncoder.encode(memberCommand.getMemPw()));
