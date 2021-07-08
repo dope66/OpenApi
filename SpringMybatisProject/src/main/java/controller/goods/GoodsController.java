@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import command.GoodsCommand;
+import service.goods.GoodsListService;
 import service.goods.GoodsNumberService;
 import service.goods.GoodsWriteService;
 import validator.GoodsCommandValidator;
@@ -20,6 +21,8 @@ public class GoodsController {
 GoodsNumberService goodsNumberService;
 @Autowired
 GoodsWriteService goodsWriteService;
+@Autowired
+GoodsListService goodsListService;
 @RequestMapping(value="goodsJoin",method=RequestMethod.POST)
 public String join(GoodsCommand goodsCommand, Errors errors,
 		HttpSession session) {
@@ -34,8 +37,8 @@ public String join(GoodsCommand goodsCommand, Errors errors,
 }
 
 	@RequestMapping("goodsList")
-	public String list() {
-		
+	public String list(Model model) {
+		goodsListService.goodsList(model);
 		
 		return "goods/goodsList";
 	}

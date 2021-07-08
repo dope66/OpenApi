@@ -33,6 +33,6 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<a href="goodsRegist.gd">상품등록</a>
+	<a href="goodsRegist">상품등록</a>
 </body>
 </html>
