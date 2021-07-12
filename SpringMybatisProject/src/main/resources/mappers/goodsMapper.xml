@@ -18,7 +18,7 @@
 
 
 	</insert>
-
+<!--select 햇으니 resulttype  -->
 <select id="goodsList" resultType="gd">
 select PROD_NUM prodNum ,PROD_NAME prodName,PROD_PRICE prodPrice,PROD_IMAGE prodImage,
 		PROD_DETAIL prodDetail,PROD_CAPACITY prodCapacity,PRUD_SUPPLYER prudSupplyer,PROD_DEL_FEE prodDelFee,

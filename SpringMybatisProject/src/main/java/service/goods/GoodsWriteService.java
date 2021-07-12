@@ -32,9 +32,10 @@ public class GoodsWriteService {
 		dto.setPrudSupplyer(goodsCommand.getProdSupplyer());
 		// employeeId는 로그인시 session에 저장
 		AuthInfoDTO authInfo = (AuthInfoDTO) session.getAttribute("authInfo");
-
+		
 		dto.setEmployeeId(authInfo.getGrade());
 		String prodImage = "";
+		//디비에 파일명만 저장하기 위해서 오리지널 파일명을 가져와서 확장자를 ㅜ출
 		for (MultipartFile mf : goodsCommand.getProdImage1()) {
 			// 확장자를 알기위해서
 			String original = mf.getOriginalFilename();
@@ -45,7 +46,7 @@ public class GoodsWriteService {
 			// 디비에 저장할 파일명을 추출하여 prodImage에저장
 			prodImage += store + ",";
 			// 파일을 ㅇ시스템에 저장
-			String filePath = session.getServletContext().getRealPath("WEB-INF/VIEW/goods/upload");
+			String filePath = session.getServletContext().getRealPath("WEB-INF/view/goods/upload");
 			File file = new File(filePath + "/" + store);
 			// 파일저장
 			try {
