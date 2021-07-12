@@ -27,7 +27,12 @@ public class GoodsRepository {
 	public  GoodsDTO goodsDetail(String prodNum) {
 		statement=namespace+".goodsDetail";
 		return sqlSession.selectOne(statement ,prodNum);
-		
+	
 	}
 	
+	public void goodsUpdate(GoodsDTO dto) {
+		statement=namespace+".goodsUpdate";
+		sqlSession.update(statement,dto);
+
+	}
 }

@@ -25,8 +25,8 @@
 				<td>${dto.ctgr }</td>
 				<td>${dto.prodName }</td>
 				<td>
-			가격<%-- 	<fmt:formatNumber value="${dto.prodPrice }" pattern="#,###,###"
-				type="currency" /> --%>
+		<fmt:formatNumber value="${dto.prodPrice }" 
+				type="currency" /> 
 					</td>
 				<td>${dto.prodDelFee }</td>
 				

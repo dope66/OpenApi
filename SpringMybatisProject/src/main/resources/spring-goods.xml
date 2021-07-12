@@ -12,6 +12,7 @@
 <bean class="service.goods.GoodsWriteService"/>
 <bean class="service.goods.GoodsListService"/>
 <bean class="service.goods.GoodsDetailService"/>
+<bean class="service.goods.GoodsUpdateService"/>
 <!--불렀어? 그럼 컨트롤로 가자  -->
 
 

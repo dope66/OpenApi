@@ -14,6 +14,7 @@ import command.GoodsCommand;
 import service.goods.GoodsDetailService;
 import service.goods.GoodsListService;
 import service.goods.GoodsNumberService;
+import service.goods.GoodsUpdateService;
 import service.goods.GoodsWriteService;
 import validator.GoodsCommandValidator;
 @Controller
@@ -27,6 +28,9 @@ GoodsWriteService goodsWriteService;
 GoodsListService goodsListService;
 @Autowired
 GoodsDetailService goodsDetailService;
+@Autowired
+GoodsUpdateService goodsUpdateService;
+
 
 @RequestMapping(value="goodsJoin",method=RequestMethod.POST)
 public String join(GoodsCommand goodsCommand, Errors errors,
@@ -57,6 +61,19 @@ public String prodDetail(@RequestParam(value="prodNum")
 	return "goods/goodsDetail";
 	
 }
+
+@RequestMapping("goodsUpdate")
+public String goodsUpdate(GoodsCommand goodsCommand,
+		Errors errors) {
+	new GoodsCommandValidator().validate(goodsCommand,errors);
+	if(errors.hasErrors()) {
+		return "goods/goodsModify";
+	}
+	goodsUpdateService.goodsUpdate(goodsCommand);
+	return "redirect:/goods/goodsList";
+}
+
+
 
 	@RequestMapping("goodsList")
 	public String list(Model model) {
