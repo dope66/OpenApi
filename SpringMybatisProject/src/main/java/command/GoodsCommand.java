@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class GoodsCommand {
  //jsp 에서 날라온값을 자동으로 받을수있게하는것
 	String ctgr;
-	Long goodsNum;
+	Long prodNum;
 	String 	prodName;
 	Long prodPrice;
 	String prodCapacity;
@@ -27,11 +27,11 @@ public class GoodsCommand {
 	public void setCtgr(String ctgr) {
 		this.ctgr = ctgr;
 	}
-	public Long getGoodsNum() {
-		return goodsNum;
+	public Long getProdNum() {
+		return prodNum;
 	}
-	public void setGoodsNum(Long goodsNum) {
-		this.goodsNum = goodsNum;
+	public void setProdNum(Long prodNum) {
+		this.prodNum = prodNum;
 	}
 	public String getProdName() {
 		return prodName;

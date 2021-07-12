@@ -24,5 +24,15 @@ public class GoodsRepository {
 		statement=namespace+".goodsNum";
 		return sqlSession.selectOne(statement);
 	}
+	public  GoodsDTO goodsDetail(String prodNum) {
+		statement=namespace+".goodsDetail";
+		return sqlSession.selectOne(statement ,prodNum);
 	
+	}
+	
+	public void goodsUpdate(GoodsDTO dto) {
+		statement=namespace+".goodsUpdate";
+		sqlSession.update(statement,dto);
+
+	}
 }

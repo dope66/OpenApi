@@ -26,10 +26,10 @@ public class GoodsWriteService {
 		dto.setProdDelFee(goodsCommand.getProdDelFee());
 		dto.setProdDetail(goodsCommand.getProdDetail());
 		dto.setProdName(goodsCommand.getProdName());
-		dto.setProdNum(goodsCommand.getGoodsNum());
+		dto.setProdNum(goodsCommand.getProdNum());
 		dto.setProdPrice(goodsCommand.getProdPrice());
 		dto.setRecommend(goodsCommand.getRecommend());
-		dto.setPrudSupplyer(goodsCommand.getProdSupplyer());
+		dto.setProdSupplyer(goodsCommand.getProdSupplyer());
 		// employeeId는 로그인시 session에 저장
 		AuthInfoDTO authInfo = (AuthInfoDTO) session.getAttribute("authInfo");
 		

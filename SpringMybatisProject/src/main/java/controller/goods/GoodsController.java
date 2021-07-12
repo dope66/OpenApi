@@ -8,10 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import command.GoodsCommand;
+import service.goods.GoodsDetailService;
 import service.goods.GoodsListService;
 import service.goods.GoodsNumberService;
+import service.goods.GoodsUpdateService;
 import service.goods.GoodsWriteService;
 import validator.GoodsCommandValidator;
 @Controller
@@ -23,6 +26,12 @@ GoodsNumberService goodsNumberService;
 GoodsWriteService goodsWriteService;
 @Autowired
 GoodsListService goodsListService;
+@Autowired
+GoodsDetailService goodsDetailService;
+@Autowired
+GoodsUpdateService goodsUpdateService;
+
+
 @RequestMapping(value="goodsJoin",method=RequestMethod.POST)
 public String join(GoodsCommand goodsCommand, Errors errors,
 		HttpSession session) {
@@ -35,6 +44,36 @@ public String join(GoodsCommand goodsCommand, Errors errors,
 	goodsWriteService.goodsWrite(goodsCommand,session);
 	return "redirect:goodsList";
 }
+@RequestMapping("prodModify")
+
+public String prdModify(@RequestParam(value="prodNum") String prodNum,
+		Model model) {
+	goodsDetailService.goodsDetail(prodNum, model);
+	return "goods/goodsModify";
+}
+@RequestMapping("prodDetail")
+public String prodDetail(@RequestParam(value="prodNum") 
+	String prodNum, Model model) {
+	//리포지트를 사용하기 위해서는 service를 만들어야됩니다
+	//리포지트를 사용하는 이유는 디비에 접속하기 위해서 사용하는게 리포지트 
+	
+	goodsDetailService.goodsDetail(prodNum, model);
+	return "goods/goodsDetail";
+	
+}
+
+@RequestMapping("goodsUpdate")
+public String goodsUpdate(GoodsCommand goodsCommand,
+		Errors errors) {
+	new GoodsCommandValidator().validate(goodsCommand,errors);
+	if(errors.hasErrors()) {
+		return "goods/goodsModify";
+	}
+	goodsUpdateService.goodsUpdate(goodsCommand);
+	return "redirect:/goods/goodsList";
+}
+
+
 
 	@RequestMapping("goodsList")
 	public String list(Model model) {
