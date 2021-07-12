@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib  prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	pageContext.setAttribute("br", "\n");
 %>
@@ -11,7 +12,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>goodslist.jsp</title>
+<title>goodsDetail.jsp</title>
 <script >
 function onQty(){
 	var qty=document.frm.PurchaseQty.value;
@@ -28,6 +29,7 @@ function goodsCartAdd(prodNum){
 </script>
 </head>
 <body>
+<a href="prodModify?prodNum=${dto.prodNum } ">수정</a>
 <form action="#" name="frm" method="post">
 <input type="hidden" name="prodNum" value="${dto.prodNum }">
 ${dto.ctgr }의 ${dto.prodName } 상품 설명 입니다.
@@ -38,7 +40,11 @@ ${dto.ctgr }의 ${dto.prodName } 상품 설명 입니다.
 			<td>상품 이름 :${dto.prodName }</td>
 		</tr>
 		<tr>
-			<td>상품 가격 : ${dto.prodPrice }</td>
+			<td>
+			상품 가격 : <fmt:formatNumber value="${dto.prodPrice }"
+			 type="currency"
+			></fmt:formatNumber>
+			</td>
 		</tr>
 		<tr>
 			<td align=left><c:if test="${dto.prodDelFee ==0 }">무료 배송</c:if>
@@ -72,15 +78,21 @@ ${dto.ctgr }의 ${dto.prodName } 상품 설명 입니다.
 			공급 업체 : ${dto.prudSupplyer } </br>
 			${dto.prodDetail }</br>
 	<c:forTokens items="${dto.prodImage }" delims=","
-	var="file">
+	var="prodImage">
 	<c:if test="${file !='null' }">
-	<img width="800" src="goods/upload/${file }"/></br>
+	<img width="800" src="../goods/upload/${prodImage }"/></br>
 	</c:if>
 	</c:forTokens>			
 			</td>
 		</tr>
 	</table>
 	</form>
+	추천여부 : 
+	<c:if test="${dto.recommend=='Y' }">추천
+	</c:if>
+	<c:if test="${dto.recommend=='N' }">비추천
+	</c:if><br/>
+	
 	리뷰
 	<hr/>
 	<c:forEach items="${list }" var="dto">

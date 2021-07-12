@@ -27,6 +27,7 @@ GoodsWriteService goodsWriteService;
 GoodsListService goodsListService;
 @Autowired
 GoodsDetailService goodsDetailService;
+
 @RequestMapping(value="goodsJoin",method=RequestMethod.POST)
 public String join(GoodsCommand goodsCommand, Errors errors,
 		HttpSession session) {
@@ -38,6 +39,13 @@ public String join(GoodsCommand goodsCommand, Errors errors,
 	}
 	goodsWriteService.goodsWrite(goodsCommand,session);
 	return "redirect:goodsList";
+}
+@RequestMapping("prodModify")
+
+public String prdModify(@RequestParam(value="prodNum") String prodNum,
+		Model model) {
+	goodsDetailService.goodsDetail(prodNum, model);
+	return "goods/goodsModify";
 }
 @RequestMapping("prodDetail")
 public String prodDetail(@RequestParam(value="prodNum") 

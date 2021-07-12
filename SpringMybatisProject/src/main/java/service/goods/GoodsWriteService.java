@@ -45,7 +45,7 @@ public class GoodsWriteService {
 			// 디비에 저장할 파일명을 추출하여 prodImage에저장
 			prodImage += store + ",";
 			// 파일을 ㅇ시스템에 저장
-			String filePath = session.getServletContext().getRealPath("WEB-INF/VIEW/goods/upload");
+			String filePath = session.getServletContext().getRealPath("WEB-INF/view/goods/upload");
 			File file = new File(filePath + "/" + store);
 			// 파일저장
 			try {
