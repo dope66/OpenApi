@@ -21,12 +21,12 @@
 		</tr>
 		<c:forEach items="${lists }" var="dto">
 			<tr>
-				<td><a href="prodDetail.gd?prodNum=${dto.prodNum }">${dto.prodNum }</a></td>
+				<td><a href="prodDetail?prodNum=${dto.prodNum }">${dto.prodNum }</a></td>
 				<td>${dto.ctgr }</td>
 				<td>${dto.prodName }</td>
 				<td>
-			가격<%-- 	<fmt:formatNumber value="${dto.prodPrice }" pattern="#,###,###"
-				type="currency" /> --%>
+		<fmt:formatNumber value="${dto.prodPrice }" 
+				type="currency" /> 
 					</td>
 				<td>${dto.prodDelFee }</td>
 				
