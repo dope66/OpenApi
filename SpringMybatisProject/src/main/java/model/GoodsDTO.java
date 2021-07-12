@@ -1,5 +1,6 @@
 package model;
 //자기(command)가 갖고있는 값을 테이블로 전달하는 애 DTO는 테이블에 있는 값이랑 같아야됨
+//디비에 값을 전달받거나 전달하기 위해서 
 public class GoodsDTO {
 	Long prodNum;
 	String prodName;

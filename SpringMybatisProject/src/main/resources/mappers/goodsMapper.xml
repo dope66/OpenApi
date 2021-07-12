@@ -4,12 +4,14 @@
 <mapper namespace="mappers.goodsMapper">
 
 	<select id="goodsNum" resultType="string">
-		select prod_seq.nextval from dual
+		select prod_seq.nextval from
+		dual
 
 
 	</select>
 	<insert id="goodsWrite" parameterType="gd">
-		insert into products(PROD_NUM,PROD_NAME,PROD_PRICE,PROD_IMAGE,
+		insert into
+		products(PROD_NUM,PROD_NAME,PROD_PRICE,PROD_IMAGE,
 		PROD_DETAIL,PROD_CAPACITY,PRUD_SUPPLYER,PROD_DEL_FEE,
 		RECOMMEND,EMPLOYEE_ID,CTGR)
 		values(#{prodNum},#{prodName},#{prodPrice},#{prodImage},
@@ -19,11 +21,41 @@
 
 	</insert>
 
-<select id="goodsList" resultType="gd">
-select PROD_NUM prodNum ,PROD_NAME prodName,PROD_PRICE prodPrice,PROD_IMAGE prodImage,
-		PROD_DETAIL prodDetail,PROD_CAPACITY prodCapacity,PRUD_SUPPLYER prudSupplyer,PROD_DEL_FEE prodDelFee,
+	<select id="goodsList" resultType="gd">
+		select PROD_NUM prodNum ,PROD_NAME prodName,PROD_PRICE prodPrice,PROD_IMAGE
+		prodImage,
+		PROD_DETAIL prodDetail,PROD_CAPACITY
+		prodCapacity,PRUD_SUPPLYER prudSupplyer,PROD_DEL_FEE prodDelFee,
 		RECOMMEND recommend,EMPLOYEE_ID employeeId,CTGR ctgr
-	from products 
-</select>
+		from products
+	</select>
+<!--id는 프라이머리 키일때   -->
+<!--result는 일반컬럼  -->
+	<resultMap type="model.GoodsDTO" id="baseResult">
+<id column="PROD_NUM" jdbcType="BIGINT" property="prodNum"/> 
+<result column="PROD_NAME" jdbcType="VARCHAR" property="prodName"/>
+<result column="PROD_PRICE" jdbcType="BIGINT" property="prodPrice"/>
+<result column="PROD_IMAGE" jdbcType="VARCHAR" property="prodImage"/>
+<result column="PROD_DETAIL" jdbcType="VARCHAR" property="prodDetail"/>
+<result column="PROD_CAPACITY" jdbcType="BIGINT" property="prodCapacity"/>
+<result column="PRUD_SUPPLYER" jdbcType="VARCHAR" property="prudSupplyer"/>
+<result column="PROD_DEL_FEE" jdbcType="BIGINT" property="prodDelFee"/>
+<result column="RECOMMEND" jdbcType="VARCHAR" property="recommend"/>
+<result column="EMPLOYEE_ID" jdbcType="VARCHAR" property="employeeId"/>
+<result column="CTGR" jdbcType="VARCHAR" property="ctgr"/>
+	</resultMap>
+	<select id="goodsDetail" parameterType="string"
+		resultMap="baseResult">
+		select
+		PROD_NUM,PROD_NAME,PROD_PRICE,PROD_IMAGE,
+		PROD_DETAIL,PROD_CAPACITY,PRUD_SUPPLYER,PROD_DEL_FEE,
+		RECOMMEND,EMPLOYEE_ID,CTGR
+		from products
+
+		where PROD_NUM=#{prodNum}
+
+
+	</select>
+
 
 </mapper>
