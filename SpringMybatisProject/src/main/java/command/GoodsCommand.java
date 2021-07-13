@@ -3,23 +3,23 @@ package command;
 import org.springframework.web.multipart.MultipartFile;
 
 public class GoodsCommand {
- //jsp 에서 날라온값을 자동으로 받을수있게하는것
 	String ctgr;
 	Long prodNum;
-	String 	prodName;
+	String prodName;
 	Long prodPrice;
 	String prodCapacity;
 	String prodSupplyer;
 	Long prodDelFee;
 	String recommend;
 	String prodDetail;
-	MultipartFile[] prodImage1;
-	
-	public String getRecommend() {
-		return recommend;
+	MultipartFile [] prodImage;
+	String fileDel1;
+		
+	public String getFileDel1() {
+		return fileDel1;
 	}
-	public void setRecommend(String recommend) {
-		this.recommend = recommend;
+	public void setFileDel1(String fileDel1) {
+		this.fileDel1 = fileDel1;
 	}
 	public String getCtgr() {
 		return ctgr;
@@ -57,26 +57,29 @@ public class GoodsCommand {
 	public void setProdSupplyer(String prodSupplyer) {
 		this.prodSupplyer = prodSupplyer;
 	}
-	public String getProdDetail() {
-		return prodDetail;
-	}
-	public void setProdDetail(String prodDetail) {
-		this.prodDetail = prodDetail;
-	}
-	public MultipartFile[] getProdImage1() {
-		return prodImage1;
-	}
-	public void setProdImage1(MultipartFile[] prodImage1) {
-		this.prodImage1 = prodImage1;
-	}
 	public Long getProdDelFee() {
 		return prodDelFee;
 	}
 	public void setProdDelFee(Long prodDelFee) {
 		this.prodDelFee = prodDelFee;
 	}
-	
-	
-	
-	
+	public String getRecommend() {
+		return recommend;
+	}
+	public void setRecommend(String recommend) {
+		this.recommend = recommend;
+	}
+	public String getProdDetail() {
+		return prodDetail;
+	}
+	public void setProdDetail(String prodDetail) {
+		this.prodDetail = prodDetail;
+	}
+	public MultipartFile[] getProdImage() {
+		return prodImage;
+	}
+	public void setProdImage(MultipartFile[] prodImage) {
+		this.prodImage = prodImage;
+	}
+
 }

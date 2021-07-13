@@ -9,15 +9,10 @@ import model.GoodsDTO;
 import repository.GoodsRepository;
 
 public class GoodsListService {
-@Autowired
-GoodsRepository goodsRepository;
+	@Autowired
+	GoodsRepository goodsRepository;
 	public void goodsList(Model model) {
-		//list로 값을 전달?= model
-		List<GoodsDTO> list =goodsRepository.goodsList();
+		List<GoodsDTO> list = goodsRepository.goodsList();
 		model.addAttribute("lists",list);
-		 // 여기서 만들었어 ? 그럼 리포지트로 간다 이말이야 
-	
-		
 	}
-	
 }

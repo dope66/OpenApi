@@ -25,4 +25,5 @@
  		
  		<bean id ="EmployeeDeleteService"
  		class="service.employee.EmployeeDeleteService"></bean>
+ 		<bean class="controller.employee.EmployeeMyPageController" />
 </beans>

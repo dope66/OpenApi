@@ -12,27 +12,30 @@ public class GoodsRepository {
 	SqlSession sqlSession;
 	String namespace ="mappers.goodsMapper";
 	String statement;
+	public void goodsDel(String prodNum)
+	{
+		statement=namespace+".goodsDel";
+		sqlSession.delete(statement,prodNum);
+		
+	}
+	public void goodsUpdate(GoodsDTO dto) {
+		statement = namespace +".goodsUpdate";
+		sqlSession.update(statement, dto);
+	}
+	public GoodsDTO goodsDetail(String prodNum) {
+		statement = namespace + ".goodsDetail";
+		return sqlSession.selectOne(statement, prodNum) ;
+	}
 	public List<GoodsDTO> goodsList(){
-		statement=namespace+".goodsList";
+		statement = namespace + ".goodsList";
 		return sqlSession.selectList(statement);
 	}
-	public void goodsWrite(GoodsDTO dto) {
-		statement=namespace+".goodsWrite";
-		sqlSession.insert(statement,dto);
+	public void goodsInsert(GoodsDTO dto) {
+		statement = namespace + ".goodsInsert";
+		sqlSession.insert(statement, dto);
 	}
 	public String goodsNum() {
-		statement=namespace+".goodsNum";
+		statement = namespace + ".goodsNum";
 		return sqlSession.selectOne(statement);
-	}
-	public  GoodsDTO goodsDetail(String prodNum) {
-		statement=namespace+".goodsDetail";
-		return sqlSession.selectOne(statement ,prodNum);
-	
-	}
-	
-	public void goodsUpdate(GoodsDTO dto) {
-		statement=namespace+".goodsUpdate";
-		sqlSession.update(statement,dto);
-
 	}
 }

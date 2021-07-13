@@ -14,7 +14,7 @@
 <!--오래 기다렸지?/ 불렀어? 그럼 컨트롤로 가자  -->
 <bean class="service.goods.GoodsDetailService"/>
 <bean class="service.goods.GoodsUpdateService"/>
-<!--불렀어? 그럼 컨트롤로 가자  -->
+<bean class="service.goods.GoodsDeleteService"/>
 
 
 

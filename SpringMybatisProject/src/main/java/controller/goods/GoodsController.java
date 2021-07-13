@@ -7,87 +7,84 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import command.GoodsCommand;
+import service.goods.GoodsDeleteService;
 import service.goods.GoodsDetailService;
 import service.goods.GoodsListService;
 import service.goods.GoodsNumberService;
 import service.goods.GoodsUpdateService;
 import service.goods.GoodsWriteService;
 import validator.GoodsCommandValidator;
+
 @Controller
 @RequestMapping("goods")
 public class GoodsController {
-@Autowired
-GoodsNumberService goodsNumberService;
-@Autowired
-GoodsWriteService goodsWriteService;
-@Autowired
-GoodsListService goodsListService;
-@Autowired
-GoodsDetailService goodsDetailService;
-@Autowired
-GoodsUpdateService goodsUpdateService;
-
-
-@RequestMapping(value="goodsJoin",method=RequestMethod.POST)
-public String join(GoodsCommand goodsCommand, Errors errors,
-		HttpSession session) {
-	//errors를 가져왔으니 위에 ERRORS를 추가하자 
-	new GoodsCommandValidator().validate(goodsCommand, errors);
-	if(errors.hasErrors()) {
-		return"goods/goodsJoin";
-		
+	@Autowired
+	GoodsNumberService goodsNumberService;
+	@Autowired
+	GoodsWriteService goodsWriteService;
+	@Autowired
+	GoodsDetailService goodsDetailService;
+	@Autowired
+	GoodsUpdateService goodsUpdateService;
+	@Autowired
+	GoodsDeleteService goodsDeleteService;
+	@RequestMapping("goodsDel")
+	public String goodsDel(
+			@RequestParam(value="prodNum")String prodNum,
+			HttpSession session) {
+		goodsDeleteService.goodsDel(prodNum, session);
+		return "redirect:goodsList";
 	}
-	goodsWriteService.goodsWrite(goodsCommand,session);
-	return "redirect:goodsList";
-}
-@RequestMapping("prodModify")
-
-public String prdModify(@RequestParam(value="prodNum") String prodNum,
-		Model model) {
-	goodsDetailService.goodsDetail(prodNum, model);
-	return "goods/goodsModify";
-}
-@RequestMapping("prodDetail")
-public String prodDetail(@RequestParam(value="prodNum") 
-	String prodNum, Model model) {
-	//리포지트를 사용하기 위해서는 service를 만들어야됩니다
-	//리포지트를 사용하는 이유는 디비에 접속하기 위해서 사용하는게 리포지트 
-	
-	goodsDetailService.goodsDetail(prodNum, model);
-	return "goods/goodsDetail";
-	
-}
-
-@RequestMapping("goodsUpdate")
-public String goodsUpdate(GoodsCommand goodsCommand,
-		Errors errors) {
-	new GoodsCommandValidator().validate(goodsCommand,errors);
-	if(errors.hasErrors()) {
+	@RequestMapping("goodsUpdate")
+	public String goodsUpdate(GoodsCommand goodsCommand, 
+			Errors errors, HttpSession session) {
+		new GoodsCommandValidator().validate(goodsCommand, errors);
+		if(errors.hasErrors()) {
+			// 값을 command로 받았으므로 오류 발생하여 값을 보낼때 다시 
+			// command로 전달된다.
+			return "goods/goodsModify";
+		}
+		goodsUpdateService.goodsUpdate(goodsCommand, session);
+		return "redirect:/goods/goodsList";
+	}
+	@RequestMapping("prodModify")
+	public String prodModify(
+			@RequestParam(value="prodNum") String prodNum,
+			Model model) {
+		goodsDetailService.goodsDetail(prodNum, model);
 		return "goods/goodsModify";
 	}
-	goodsUpdateService.goodsUpdate(goodsCommand);
-	return "redirect:/goods/goodsList";
-}
-
-
-
+	@RequestMapping("prodDetail")
+	public String prodDetail(
+			@RequestParam(value = "prodNum") String prodNum,
+			Model model) {
+		goodsDetailService.goodsDetail(prodNum, model);
+		return "goods/goodsDetail";
+	}
+	@RequestMapping("goodsJoin") /// IOC
+	public String goodsJoin(GoodsCommand goodsCommand,
+			Errors errors,HttpSession session) {
+		new GoodsCommandValidator().validate(goodsCommand, errors);
+		if(errors.hasErrors()) {
+			return "goods/goodsJoin";
+		}
+		goodsWriteService.goodsInsrt(goodsCommand, session);
+		return "redirect:goodsList";
+	}
+	
+	@RequestMapping("goodsRegist") /// IOC
+	public String goodsRegist(Model model) {
+		goodsNumberService.goodsNum(model);
+		return "goods/goodsJoin";
+	}
+	@Autowired
+	GoodsListService goodsListService;
 	@RequestMapping("goodsList")
 	public String list(Model model) {
 		goodsListService.goodsList(model);
-		
 		return "goods/goodsList";
-	}
-	@RequestMapping("goodsRegist")
-	//아래 모델을 썻으니?까 모델을 불러온다 이말이야
-	public String regist(Model model) {
-		//db로 먼저갔다와야된다.그러니까 서비스 
-		//Model:자바에서 만들어진 값을 jsp에 전달하기 위해서 사용 
-		goodsNumberService.goodsNum(model);
-		
-		return "goods/goodsJoin";
 	}
 }
