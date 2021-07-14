@@ -13,6 +13,9 @@ import service.goods.GoodsListService;
 public class MainController {
 	@Autowired
 	GoodsListService goodsListService;
+	
+	
+	
 	@RequestMapping("main")
 	public String aaa(
 			@ModelAttribute LogInCommand logInCommand,

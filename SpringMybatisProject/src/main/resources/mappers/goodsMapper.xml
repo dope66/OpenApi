@@ -2,6 +2,51 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappers.goodsMapper">
+<resultMap type="model.ProductCartDTO" id="productCartMap">
+<association property="productDTO" javaType="model.GoodsDTO">
+
+<result column="PRUD_SUPPLYER" jdbcType="VARCHAR" property="prodSupplyer"/>
+<result column="PROD_DEL_FEE" jdbcType="BIGINT" property="prodDelFee"/>
+<result column="PROD_IMAGE" jdbcType="VARCHAR" property="prodImage"/>
+<result column="PROD_NAME" jdbcType="VARCHAR" property="prodName"/>
+<result column="PROD_PRICE" jdbcType="BIGINT" property="prodPrice"/>
+</association>
+<association property="cartDTO" javaType="model.CartDTO">
+<id column="PROD_NUM" jdbcType="BIGINT" property="prodNum"/>
+<id column="MEM_ID" jdbcType="VARCHAR" property="memId"/>
+<result column="CART_PRICE" jdbcType="BIGINT" property="cartPrice"/>
+<result column="CART_QTY" jdbcType="BIGINT" property="cartQty"/>
+</association>
+</resultMap>
+<select id="cartList" parameterType="model.CartDTO" resultMap="productCartMap">
+select p.PROD_NUM,PRUD_SUPPLYER,PROD_DEL_FEE,
+	PROD_IMAGE,PROD_NAME,PROD_PRICE,
+	CART_PRICE,CART_QTY,MEM_ID
+	FORM PRODUCTS p , cart c
+	where p.PROD_NUM=c.PROD_NUM and c.mem_id=#{memId}
+	and 
+	p.PROD_NUM = #{prodNum}
+	
+</select>
+<select id="memProdNum" parameterType="string" resultType="string">
+
+select prod_num from CART
+where mem_id=#{memId}
+
+</select>
+<insert id="cartAdd" parameterType="model.CartDTO">
+MERGE into cart c1
+	using(select prod_num from products where prod_num=#{prodNum} ) p1
+	on (c1.prod_num=p1.prod_num and c1.mem_id=#{memId})
+	when MATCHE THEN
+	update set c1.cart_qty = cart_qty + #{cartQty},
+				c1.cart_price = cart_price + #{cartPrice}
+	when not MATCHED THEN 
+	insert ( c1.mem_id,c1.prod_num,c1.cart_qty,c1.cart_price )
+	values( #{memId},#{prodNum},#{cartQty},#{cartPrice} )
+
+
+</insert>
 <delete id="goodsDel" parameterType="string">
 delete from products
 where Prod_num=#{prodNum}

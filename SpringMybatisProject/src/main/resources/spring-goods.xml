@@ -15,7 +15,10 @@
 <bean class="service.goods.GoodsDetailService"/>
 <bean class="service.goods.GoodsUpdateService"/>
 <bean class="service.goods.GoodsDeleteService"/>
-
+<bean class="controller.goods.GoodsViewController"/>
+<bean class="controller.goods.GoodsCartController"/>
+<bean class="service.goods.GoodsCartAddService"/>
+<bean class="service.goods.GoodsCartListService"/>
 
 
 
