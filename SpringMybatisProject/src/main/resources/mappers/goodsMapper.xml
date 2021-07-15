@@ -2,6 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappers.goodsMapper">
+
+<delete id="cartDelete" parameterType="model.CartDTO">
+delete from cart
+where mem_id =#{memId} and prod_num=#{prodNum}
+
+</delete>
+<insert id="purchaseListInsert" parameterType="model.CartDTO">
+insert into purchase_List(PURCHASE_NUM,PROD_NUM,PURCHASE_QTY,
+PURCHASE_PRICE)
+select #{purchaseNum},PROD_NUM,CART_QTY,CART_PRICE from cart
+where mem_id =#{memId} and prod_num=#{prodNum}
+
+</insert>
+
+<insert id="purchaseInsert" parameterType="model.PurchaseDTO" >
+
+insert into purchase(PURCHASE_NUM,MEM_ID,PURCHASE_TOT_PRICE,
+PURCHASE_ADDR,PURCHASE_METHOD,PURCAHSE_REQUEST,RECEIVER_NAME,
+RECEIVER_PHONE,PURCHASE_DATE)
+values(#{purchaseNum},#{memId},#{purchaseTotprice},
+#{purchaseAddr},#{purchaseMethod},#{purchaseRequest},
+#{receiverName},#{receiverPhone},sysdate)
+
+
+</insert>
+<update id="goodsQtyDown" parameterType="model.CartDTO">
+update cart
+set cart_qty=cart_qty-1,
+cart_price=cart_price-#{cartPrice}
+where mem_id =#{memId} and prod_num=#{prodNum}
+
+</update>
+<!--association이 있는 map은 출력결과를 하나만 반환한다. -->
+<!-- 두개의 테이블에 있는 값을 1:1로  가져올 때 association 사용한다.   -->
 <resultMap type="model.ProductCartDTO" id="productCartMap">
 <association property="productDTO" javaType="model.GoodsDTO">
 
@@ -18,16 +52,17 @@
 <result column="CART_QTY" jdbcType="BIGINT" property="cartQty"/>
 </association>
 </resultMap>
+
 <select id="cartList" parameterType="model.CartDTO" resultMap="productCartMap">
-select p.PROD_NUM,PRUD_SUPPLYER,PROD_DEL_FEE,
-	PROD_IMAGE,PROD_NAME,PROD_PRICE,
-	CART_PRICE,CART_QTY,MEM_ID
-	FORM PRODUCTS p , cart c
-	where p.PROD_NUM=c.PROD_NUM and c.mem_id=#{memId}
-	and 
-	p.PROD_NUM = #{prodNum}
+	select p.PROD_NUM , PRUD_SUPPLYER, PROD_DEL_FEE,
+			PROD_IMAGE, PROD_NAME ,PROD_PRICE,
+			CART_PRICE, CART_QTY, mem_id
+	from  products p, cart c
+	where p.PROD_NUM = c.prod_num and c.mem_id = #{memId}
+	and p.PROD_NUM = #{prodNum}
 	
 </select>
+<!--사용자가 저장한 cart에있는 상품번호를 가져옴  -->
 <select id="memProdNum" parameterType="string" resultType="string">
 
 select prod_num from CART
@@ -35,16 +70,15 @@ where mem_id=#{memId}
 
 </select>
 <insert id="cartAdd" parameterType="model.CartDTO">
-MERGE into cart c1
-	using(select prod_num from products where prod_num=#{prodNum} ) p1
-	on (c1.prod_num=p1.prod_num and c1.mem_id=#{memId})
-	when MATCHE THEN
-	update set c1.cart_qty = cart_qty + #{cartQty},
-				c1.cart_price = cart_price + #{cartPrice}
-	when not MATCHED THEN 
-	insert ( c1.mem_id,c1.prod_num,c1.cart_qty,c1.cart_price )
-	values( #{memId},#{prodNum},#{cartQty},#{cartPrice} )
-
+	MERGE into cart c1
+	using ( select prod_num from products where prod_num = #{prodNum}  ) p1
+	on ( c1.prod_num = p1.prod_num and c1.mem_id = #{memId} )
+	When MATCHED THEN
+		update set c1.cart_qty = cart_qty + #{cartQty},
+		           c1.cart_price = cart_price + #{cartPrice}
+	When not MATCHED THEN
+		insert (c1.mem_id, c1.prod_num, c1.cart_qty, c1.cart_price)
+		values(#{memId},#{prodNum},#{cartQty},#{cartPrice})
 
 </insert>
 <delete id="goodsDel" parameterType="string">

@@ -13,12 +13,14 @@ import command.MemberCommand;
 import model.AuthInfoDTO;
 import service.main.LoginService;
 import service.member.MemberEmailCkService;
+/*import service.member.MemberEmailCkService;*/
 import service.member.MemberJoinService;
 import validator.MemberCommandValidator;
 
 @Controller
 @RequestMapping("register")
 public class MemberController {
+
 	@Autowired
 	MemberEmailCkService memberEmailCkService;
 

@@ -24,11 +24,12 @@ public void cartList(HttpSession session,Model model) {
 	//사용자의 장바구니에 있는 상품번호를 가져옴 
 	List<String>prodNums=goodsRepository.memProdNum(memId);
 	List<ProductCartDTO>list =new ArrayList<ProductCartDTO>();
+	//리스트를 한번씩 해주기 위해서 for문으로 돌림 
 	for(String prodNum: prodNums) {
 		CartDTO dto= new CartDTO();
 		dto.setMemId(memId);
 		dto.setProdNum(prodNum);
-		 
+		 //1대 1로 가져올때 assosiation을 사용한다.
 		ProductCartDTO productCartDTO=
 				goodsRepository.cartList(dto);
 		list.add(productCartDTO);

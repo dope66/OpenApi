@@ -8,12 +8,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import model.CartDTO;
 import model.GoodsDTO;
 import model.ProductCartDTO;
+import model.PurchaseDTO;
 
 public class GoodsRepository {
 	@Autowired
 	SqlSession sqlSession;
 	String namespace ="mappers.goodsMapper";
 	String statement;
+	public void cartDelete(CartDTO dto) {
+		statement=namespace+".cartDelete";
+		sqlSession.delete(statement,dto);
+	}
+	public int purchaseListInsert(CartDTO dto)
+	{
+		statement=namespace+".purchaseListInsert";
+		return sqlSession.insert(statement,dto);
+	}
+	public void purchaseInsert(PurchaseDTO dto)
+	{
+		statement=namespace+".purchaseInsert";
+		sqlSession.insert(statement,dto);
+		
+	}
+	public void goodsQtyDown(CartDTO dto)
+{
+		statement=namespace+".goodsQtyDown";
+		sqlSession.update(statement,dto);
+}
 	public  ProductCartDTO cartList(CartDTO dto) {
 		statement=namespace+".cartList";
 		return sqlSession.selectOne(statement,dto);

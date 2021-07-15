@@ -1,8 +1,8 @@
 package model;
 
 public class ProductCartDTO {
-	GoodsDTO productDTO;
-	CartDTO	cartDTO;
+	GoodsDTO productDTO;//1
+	CartDTO	cartDTO;//1
 	public GoodsDTO getProductDTO() {
 		return productDTO;
 	}

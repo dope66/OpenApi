@@ -8,7 +8,7 @@ set ckOk=#{ckOk}
 where MEM_EMAIL=#{memEmail} and ckOk is null
 
 
-</update>
+</update> 
 	<update id="memPwUpdate" parameterType="model.MemberDTO">
 		update member
 		set MEM_PW = #{memPw}

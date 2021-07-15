@@ -7,20 +7,24 @@
 			"
 >
 <bean class="controller.goods.GoodsController"/>
-<bean class="service.goods.GoodsNumberService"/>
+<bean class="controller.goods.GoodsViewController"/>
+<bean class="controller.goods.GoodsCartController"/>
+
 <bean class="repository.GoodsRepository"/>
+
+<bean class="service.goods.GoodsNumberService"/>
 <bean class="service.goods.GoodsWriteService"/>
 <bean class="service.goods.GoodsListService"/>
-<!--오래 기다렸지?/ 불렀어? 그럼 컨트롤로 가자  -->
 <bean class="service.goods.GoodsDetailService"/>
 <bean class="service.goods.GoodsUpdateService"/>
 <bean class="service.goods.GoodsDeleteService"/>
-<bean class="controller.goods.GoodsViewController"/>
-<bean class="controller.goods.GoodsCartController"/>
 <bean class="service.goods.GoodsCartAddService"/>
 <bean class="service.goods.GoodsCartListService"/>
+<bean class="service.goods.GoodsCartQtyDownService"/>
+<bean class="service.goods.GoodsBuyService"/>
+<bean class="service.goods.GoodsOrderService"/>
 
-
+<!--오래 기다렸지?/ 불렀어? 그럼 컨트롤로 가자  -->
 
 
 

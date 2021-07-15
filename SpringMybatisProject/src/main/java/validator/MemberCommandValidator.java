@@ -33,7 +33,7 @@ public class MemberCommandValidator implements Validator{
 		ValidationUtils.rejectIfEmpty(errors, "memBirth", "required");
 		ValidationUtils.rejectIfEmpty(errors, "memGender", "required");
 		ValidationUtils.rejectIfEmpty(errors, "memEmail", "required");
-		ValidationUtils.rejectIfEmpty(errors, "memEmailCk", "required");
+		/* ValidationUtils.rejectIfEmpty(errors, "memEmailCk", "required"); */
 		
 		
 	}
