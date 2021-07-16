@@ -1,3 +1,4 @@
+  
 package service.goods;
 
 import java.io.File;
@@ -11,26 +12,22 @@ import repository.GoodsRepository;
 
 public class GoodsDeleteService {
 	@Autowired
-	GoodsRepository goodsRepository;
+	GoodsRepository goodsRepository; 
 	public void goodsDel(String prodNum, HttpSession session) {
-		GoodsDTO dto=goodsRepository.goodsDetail(prodNum);
-		if(dto.getProdImage()!=null) {
-		String [] fileNames=dto.getProdImage().split(",");
-				String realPath= 
-						session.getServletContext()
-						.getRealPath("WEB-INF/view/goods/upload");
-				if(fileNames!= null && !fileNames[0].equals("")) {
-					for(String fileName: fileNames) {
-						File file=new File(realPath+"/"+fileName);
-						if(file.exists()) {
-							file.delete();
-						}
+		GoodsDTO dto = goodsRepository.goodsDetail(prodNum);
+		if(dto.getProdImage() != null) {
+			String [] fileNames = dto.getProdImage().split(",");
+			String realPath = 
+					session.getServletContext().getRealPath("WEB-INF/view/goods/upload");
+			if(fileNames != null  && !fileNames[0].equals("")) {
+				for(String fileName : fileNames) {
+					File file = new File(realPath + "/" + fileName);
+					if(file.exists()) {
+						file.delete();
 					}
 				}
+			}
 		}
 		goodsRepository.goodsDel(prodNum);
-		
-		
-		
 	}
 }

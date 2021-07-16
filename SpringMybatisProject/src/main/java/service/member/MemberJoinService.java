@@ -42,7 +42,8 @@ public void memJoin(MemberCommand memberCommand) {
 	String content="<html><body>"
 			+ "안녕하세요"+dto.getMemId()+"님의 가입을 축하드립니다."
 			+ "아래 링크를 눌러야 가입이 완료됩니다."
-			+ "<a href='http://192.168.0.2:9999/SpringMybatisProject/"
+			+ "<a href='http://192.168.0.39:8080/SpringMybatisProject/"
+			//"<a href='http://192.168.0.2:8080/SpringMybatisProject/"
 			+ "register/memberMail?num="+num+"&reciver="+dto.getMemEmail()+"'>가입을완료 하시려면 클릭하세요 </a>"
 			+ "</body></html>";
 	try {

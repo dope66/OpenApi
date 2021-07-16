@@ -7,17 +7,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import model.CartDTO;
 import model.GoodsDTO;
+import model.GoodsReviewsDTO;
+import model.OrderListDTO;
+import model.PaymentDTO;
 import model.ProductCartDTO;
 import model.PurchaseDTO;
+import model.ReviewDTO;
 
 public class GoodsRepository {
 	@Autowired
 	SqlSession sqlSession;
 	String namespace ="mappers.goodsMapper";
 	String statement;
+	public GoodsReviewsDTO goodsReviews(String prodNum) {
+		statement=namespace+".goodsReviews";
+		return sqlSession.selectOne(statement,prodNum);
+	}
+	public void reviewUpdate(ReviewDTO dto)
+	{
+		statement=namespace+".reviewUpdate";
+		sqlSession.update(statement,dto);
+	}
+	public ReviewDTO reviewInfo(ReviewDTO dto) {
+		statement=namespace+".reviewInfo";
+		return sqlSession.selectOne(statement,dto);
+	}
+	public void reviewWrite(ReviewDTO dto)
+	{
+		statement=namespace+".reviewWrite";
+		sqlSession.insert(statement,dto);
+	}
+	public void payment(PaymentDTO dto) {
+		statement=namespace+".payment";
+		sqlSession.insert(statement,dto);
+	}
+	public List<OrderListDTO> baseOrderList(String memId){
+		statement=namespace+".baseOrderList";
+		return sqlSession.selectList(statement,memId);
+	}
 	public void cartDelete(CartDTO dto) {
-		statement=namespace+".cartDelete";
-		sqlSession.delete(statement,dto);
+		statement = namespace + ".cartDelete";
+		sqlSession.delete(statement, dto);
 	}
 	public int purchaseListInsert(CartDTO dto)
 	{

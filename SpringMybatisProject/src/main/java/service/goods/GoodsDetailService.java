@@ -12,6 +12,7 @@ public class GoodsDetailService {
 	//모델 : 리포지트로부터 받은걸 jsp로 넘기기위해서 
 public void goodsDetail(String prodNum, Model model) {
 	GoodsDTO dto= goodsRepository.goodsDetail(prodNum);
+	//model.addA
 	model.addAttribute("goodsCommand",dto);
 	
 	

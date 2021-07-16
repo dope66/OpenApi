@@ -11,11 +11,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import command.GoodsOrderCommand;
+import command.ReviewCommand;
+import service.goods.DoPaymentService;
 import service.goods.GoodsBuyService;
 import service.goods.GoodsCartAddService;
 import service.goods.GoodsCartListService;
 import service.goods.GoodsCartQtyDownService;
 import service.goods.GoodsOrderService;
+import service.goods.GoodsReviewUpdateService;
+import service.goods.OrderProcessListService;
+import service.goods.ReviewWriteService;
 
 @Controller
 @RequestMapping("cart")
@@ -30,6 +35,68 @@ public class GoodsCartController {
 	GoodsBuyService goodsBuyService;
 	@Autowired
 	GoodsOrderService goodsOrderService;
+	@Autowired
+	OrderProcessListService orderProcessListService;
+	@Autowired
+	DoPaymentService doPaymentService;
+	@Autowired
+	ReviewWriteService	reviewWriteService;
+	@Autowired
+	GoodsReviewUpdateService goodsReviewUpdateService;
+	@RequestMapping("reviewUpdate")
+	//오버로딩 reviewUpdate
+	public String reviewUpdate(ReviewCommand reviewCommand
+			
+			) {
+		goodsReviewUpdateService.reviewUpdate(reviewCommand);
+		return "redirect:OrderProcessList";
+	}
+	@RequestMapping("goodsReviewUpdate")
+	public String reviewUpdate(
+			@RequestParam(value="purchaseNum") String purchaseNum,
+			@RequestParam(value="prodNum") String prodNum,
+			HttpSession session, Model model
+			) {
+		goodsReviewUpdateService.reviewInfo(purchaseNum, prodNum, session,model);
+		return "goods/goodsReviewModify";
+	}
+	@RequestMapping(value="reviewWrite",method = RequestMethod.POST)
+	public String reviewWrite( //command 객채
+			ReviewCommand reviewCommand,
+			//리뷰는 내가 쓰는거기때문에 session
+			HttpSession session
+			//db저장하기위한 서비스
+			) {
+		reviewWriteService.reviewWrite(reviewCommand,session);
+		return"redirect:OrderProcessList";
+	}
+	
+	@RequestMapping("goodsReview")
+	public String goodsReview(
+			@ModelAttribute(value="purchaseNum")String purchaseNum,
+			@ModelAttribute(value="prodNum")String prodNum
+			
+			) {
+	return "goods/goodsReview";
+	}
+	
+	@RequestMapping(value="doPayment", method = RequestMethod.POST)
+	public String doPayment(
+			@RequestParam(value="purchaseNum") String purchaseNum,
+			@RequestParam(value="paymentApprPrice") String paymentApprPrice,
+			@RequestParam(value = "paymentNumber") String paymentNumber,
+			HttpSession session ,Model model
+			) {
+		doPaymentService.payment(purchaseNum,paymentApprPrice,paymentNumber,session,model);
+		return "goods/buyfinished";
+	}
+
+	@RequestMapping("OrderProcessList")
+	public String purchaseCon(HttpSession session, Model model) {
+		orderProcessListService.orderList(session, model);
+		return "goods/purchaseCon";
+	}
+	
 	@RequestMapping("goodsOrder")
 	public String goodsOrder(GoodsOrderCommand goodsOrderCommand,
 			HttpSession session) {
