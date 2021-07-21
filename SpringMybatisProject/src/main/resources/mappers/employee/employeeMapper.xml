@@ -2,12 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappers.employeeMapper">
+<update id="pwUpdate" parameterType="model.EmployeeDTO">
+update employees
+set EMP_PW =#{empPw}
+WHERE emp_userID=#{empUserId}
+
+</update>
 <sql id="baseColumn">
 EMPLOYEE_ID employeeId,EMP_USERID empUserId,
 	EMP_PW empPw,EMP_NAME empName,HIRE_DATE hireDate,
 	JOB_ID jobId,PH_NUMBER phNumber,OFFICE_NUMBER officeNumber,
 	EMAIL email,EMP_ADDRESS empAddress
 </sql>
+<update id="empModify" parameterType="model.EmployeeDTO">
+update employees
+set PH_NUMBER=#{phNumber} , OFFICE_NUMBER =#{officeNumber} ,
+EMAIL=#{email} , EMP_ADDRESS =#{empAddress}
+WHERE emp_userID=#{empUserId}
+
+</update>
+<select id="empDetail" parameterType="string" resultType="model.EmployeeDTO">
+	select <include refid="baseColumn"/>
+	from employees 
+	where emp_userid=#{empId}
+</select>
+
 	<select id="empNo" resultType="string">
 		select nvl(max(EMPLOYEE_ID),0) +1 from employees
 	</select>
@@ -17,14 +36,21 @@ EMPLOYEE_ID employeeId,EMP_USERID empUserId,
 		values(#{employeeId},#{empUserId},#{empPw},#{empName},#{hireDate},#{jobId},#{phNumber},#{officeNumber},#{email},#{empAddress})
 
 	</insert>
-<select id="empList" resultType="model.EmployeeDTO">
-	select EMPLOYEE_ID employeeId,EMP_USERID empUserId,
-	EMP_PW empPw,EMP_NAME empName,HIRE_DATE hireDate,
-	JOB_ID jobId,PH_NUMBER phNumber,OFFICE_NUMBER officeNumber,
-	EMAIL email,EMP_ADDRESS empAddress
-	from employees
+<select id="empList" resultType="model.EmployeeDTO" parameterType="model.EmployeeDTO">
+select rn, employeeId, empUserId,
+	 empPw, empName, hireDate,
+	 jobId, phNumber, officeNumber,
+	 email, empAddress
+from (
+	select  rownum rn ,<include refid="baseColumn"/>
+	from employees)
+	where rn between #{startEndPageDTO.startRow} 
+	and #{startEndPageDTO.endRow}
+	
 </select>
-
+<select id="count" resultType="int">
+select count(*) from employees
+</select>
 <select id="empInfo" parameterType="string" resultType="model.EmployeeDTO">
 select <include refid="baseColumn"/>
 	from employees 

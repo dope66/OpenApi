@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="empDetail.em">회원정보</a>
-<a href="PwChange.em">비밀번호 변경</a> |
-<a href="empOut.em">회원탈퇴</a> 
+<a href="empInfo">회원정보</a>
+<a href="empPwForm">비밀번호 변경</a> |
+<a href="empOut">회원탈퇴</a> 
 </body>
 </html>

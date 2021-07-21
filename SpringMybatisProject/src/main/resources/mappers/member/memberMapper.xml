@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappers.memberMapper">
+<select id="idFind" parameterType="model.MemberDTO" resultType="string" >
+select  rpad(substr(MEM_ID,1,4),length(mem_id),'*') 
+		from member
+		where mem_phone=#{memPhone} and MEM_EMAIL=#{memEmail} and mem_name=#{memName}
+
+
+</select>
 <update id="updateCkOk" parameterType="model.MemberDTO">
 update member
 set ckOk=#{ckOk}
@@ -51,20 +58,25 @@ where MEM_EMAIL=#{memEmail} and ckOk is null
 		#{postNumber},#{detailAdd})
 
 	</insert>
-	<select id="memlist" resultType="model.MemberDTO"
-		parameterType="string">
-		select MEM_ID memId,MEM_PW memPw,MEM_ADDRESS memAddress,
-		MEM_NAME
-		memName,MEM_PHONE memPhone,
-		MEM_BIRTH memBirth,MEM_GENDER memGender,
-		MEM_ACCOUNT memAccount,MEM_EMAIL memEmail,
-		MEM_EMAIL_CK memEmailCk
-		,POST_NUMBER postNumber,DETAIL_ADD detailAdd
-		from member
-		<if test="value !=null">
-			where MEM_ID= #{memId}
+<select id="memList" resultType="model.MemberDTO" parameterType="model.MemberDTO">
+select rn, memId, memPw, memAddress, memName, memPhone, memBirth, memGender,
+        memAccount, memEmail, memEmailCk, postNumber, detailAdd
+from(
+	select rownum rn, MEM_ID memId,MEM_PW memPw,MEM_ADDRESS memAddress, MEM_NAME memName,
+	 	   MEM_PHONE memPhone, MEM_BIRTH memBirth, MEM_GENDER memGender, 
+	 	   MEM_ACCOUNT memAccount, MEM_EMAIL memEmail, MEM_EMAIL_CK memEmailCk,
+		   POST_NUMBER postNumber, DETAIL_ADD detailAdd
+	from member )
+	<trim prefix="where" prefixOverrides="AND | OR">
+		<if test="memId != null">
+			memId = #{memId}
 		</if>
-	</select>
+		<if test="startEndPageDTO != null">
+			and rn between #{startEndPageDTO.startRow} 
+			and  #{startEndPageDTO.endRow} 
+		</if>
+	</trim>
+</select>
 	<delete id="memDel">
 		delete from member
 		where mem_id =#{memId}
@@ -74,7 +86,9 @@ where MEM_EMAIL=#{memEmail} and ckOk is null
 		delete from member
 		where MEM_ID = #{memId}
 	</delete>
-
+<select id="getMemberCount" resultType="int">
+select count(*) from member
+</select>
 
 </mapper>
   

@@ -31,7 +31,9 @@
 				</tr>
 
 			</c:forEach>
-
+<tr><td colspan="5">
+		<%@ include file="../include/includePage.jsp" %>
+	</td></tr>
 
 		</table>
 	</c:if>

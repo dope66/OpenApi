@@ -1,6 +1,7 @@
 package repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,16 @@ public class GoodsRepository {
 	SqlSession sqlSession;
 	String namespace ="mappers.goodsMapper";
 	String statement;
+
+	public void cartRemove(Map<String , Object> condition) {
+		statement=namespace+".cartRemove";
+		sqlSession.delete(statement,condition);
+	}
+	public void cartProdDel(CartDTO dto) {
+		statement=namespace+".cartProdDel";
+		sqlSession.delete(statement,dto);
+		
+	}
 	public GoodsReviewsDTO goodsReviews(String prodNum) {
 		statement=namespace+".goodsReviews";
 		return sqlSession.selectOne(statement,prodNum);
@@ -92,9 +103,9 @@ public class GoodsRepository {
 		statement = namespace + ".goodsDetail";
 		return sqlSession.selectOne(statement, prodNum) ;
 	}
-	public List<GoodsDTO> goodsList(){
+	public List<GoodsDTO> goodsList(GoodsDTO dto){
 		statement = namespace + ".goodsList";
-		return sqlSession.selectList(statement);
+		return sqlSession.selectList(statement,dto);
 	}
 	public void goodsInsert(GoodsDTO dto) {
 		statement = namespace + ".goodsInsert";
@@ -102,6 +113,10 @@ public class GoodsRepository {
 	}
 	public String goodsNum() {
 		statement = namespace + ".goodsNum";
+		return sqlSession.selectOne(statement);
+	}
+	public int count() {
+		statement = namespace + ".count";
 		return sqlSession.selectOne(statement);
 	}
 }

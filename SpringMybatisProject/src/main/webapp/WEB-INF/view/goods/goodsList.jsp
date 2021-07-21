@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	상품리스트 페이지 입니다
+	상품리스트 페이지 입니다 . 상품의 갯수는 ${count }
 	</br>
 	<table border=1>
 		<tr>
@@ -32,6 +32,11 @@
 				
 			</tr>
 		</c:forEach>
+		<tr>
+		<td colspan="8">
+		<%@ include file="../include/includePage.jsp" %>
+		</td>
+		</tr>
 	</table>
 	<a href="goodsRegist">상품등록</a>
 </body>

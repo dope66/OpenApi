@@ -20,10 +20,12 @@
  		<bean id="employeeInfoService"
  		class="service.employee.EmployeeInfoService"
  		></bean>
- 		<bean id ="EmployeeUpdateService"
- 		class="service.employee.EmployeeUpdateService"></bean>
+ 		<bean class="service.employee.EmployeeUpdateService"></bean>
+ 		<bean class="service.employee.EmployeeDetailService"></bean>
  		
- 		<bean id ="EmployeeDeleteService"
- 		class="service.employee.EmployeeDeleteService"></bean>
+ 		<bean class="service.employee.EmployeeDeleteService"></bean>
+ 		<bean class="service.employee.EmployeeInfoUpdateService"></bean>
+ 		<bean class="service.employee.EmployeePwUpdateService"></bean>
+ 		<bean class="service.employee.EmployeePwModifyService"></bean>
  		<bean class="controller.employee.EmployeeMyPageController" />
 </beans>

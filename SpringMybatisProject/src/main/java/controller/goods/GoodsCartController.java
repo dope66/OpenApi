@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import command.GoodsOrderCommand;
 import command.ReviewCommand;
+import service.goods.CartProdDeleteService;
 import service.goods.DoPaymentService;
 import service.goods.GoodsBuyService;
 import service.goods.GoodsCartAddService;
 import service.goods.GoodsCartListService;
 import service.goods.GoodsCartQtyDownService;
+import service.goods.GoodsCartRemoveService;
 import service.goods.GoodsOrderService;
 import service.goods.GoodsReviewUpdateService;
 import service.goods.OrderProcessListService;
@@ -43,6 +45,25 @@ public class GoodsCartController {
 	ReviewWriteService	reviewWriteService;
 	@Autowired
 	GoodsReviewUpdateService goodsReviewUpdateService;
+	@Autowired
+	CartProdDeleteService cartProdDeleteService;
+	@Autowired
+	GoodsCartRemoveService goodsCartRemoveService;
+	@RequestMapping("goodsCartRemove")
+	public String goodsCartRemove(@RequestParam(value="prodNums") String prodNums, HttpSession session) {
+		//db로 넘기기위해서 서비스 
+		goodsCartRemoveService.cartRemove(prodNums, session);
+		return "redirect:goodsCartList";
+	}
+	
+	@RequestMapping("cartProdDel")
+	public String cartProdDel(@RequestParam(value="prodNum") String prodNum,HttpSession session) {//값을 서비스로 넘겨준다
+		//리포지토리 가기위해서 서비스를 만든다 .
+		cartProdDeleteService.cartProdDel(prodNum,session);
+		
+		return "redirect:goodsCartList";
+	}
+	
 	@RequestMapping("reviewUpdate")
 	//오버로딩 reviewUpdate
 	public String reviewUpdate(ReviewCommand reviewCommand

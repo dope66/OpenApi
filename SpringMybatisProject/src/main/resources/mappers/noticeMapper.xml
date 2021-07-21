@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.noticeMapper">
+<select id="count" resultType="int">
+select count(*) from notice
+
+</select>
+
+
+
+<delete id="noticeDel" parameterType="string">
+		delete from notice
+		where notice_no = #{noticeNo}
+	</delete>
+	<update id="noticeModify" parameterType="model.NoticeDTO">
+		update notice
+		set notice_sub = #{noticeSub}, notice_Con = #{noticeCon}
+		where notice_no = #{noticeNo}
+	</update>
+
+<select id="noticeDetail" parameterType="string" resultType="model.NoticeDTO">
+select NOTICE_NO noticeNo, NOTICE_SUB noticeSub,NOTICE_CON noticeCon, 
+		NOTICE_DATE noticeDate, NOTICE_KIND noticeKind, NOTICE_FILE, NOTICE_COUNT noticeCount,
+		EMPLOYEE_ID employeeId
+		from notice
+		where notice_no= #{noticeNo}
+</select>
+<update id="noticeCount" parameterType="string" >
+	update notice
+	set NOTICE_COUNT =NOTICE_COUNT +1
+	where NOTICE_NO= #{noticeNo}
+</update>
+<select id="noticeList" resultType="model.NoticeDTO" parameterType="model.NoticeDTO">
+
+select rn, noticeNo,  noticeSub, noticeCon, 
+		 noticeDate,  noticeKind,  noticeCount,
+		 employeeId
+		from (
+select 
+		rownum rn ,NOTICE_NO noticeNo, NOTICE_SUB noticeSub,NOTICE_CON noticeCon, 
+		NOTICE_DATE noticeDate, NOTICE_KIND noticeKind, NOTICE_FILE, NOTICE_COUNT noticeCount,
+		EMPLOYEE_ID employeeId
+		from notice )
+where rn between #{startEndPageDTO.startRow} 
+	and #{startEndPageDTO.endRow}
+</select>
+<sql id="noticeNum">
+		select nvl(max(NOTICE_NO),0) + 1 from notice
+	</sql>
+	
+	<insert id="noticeWrite">
+		insert into notice(NOTICE_NO, NOTICE_SUB,NOTICE_CON,
+		NOTICE_DATE, NOTICE_KIND, NOTICE_FILE, NOTICE_COUNT,
+		EMPLOYEE_ID)
+		values((<include refid="noticeNum"/>),#{noticeSub},
+		#{noticeCon},sysdate,#{noticeKind}, null, 0 ,#{employeeId})
+	</insert>
+</mapper>

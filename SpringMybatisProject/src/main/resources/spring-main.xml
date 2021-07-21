@@ -6,12 +6,15 @@
 			http://www.springframework.org/schema/beans/spring-beans.xsd
 			"
 >
+	<bean class="service.main.FindPasswordService" />
+	<bean id = "loginService" class="service.main.LoginService"/>
+	<bean class="service.main.IdFindFinishService"/>
+	<bean class="service.main.CookieService"/>
+	<bean id="mailService" class="controller.MailService" />
+	
 	<bean class="controller.main.MainController"/>
 	<bean class="controller.main.LogInController" />
-	<bean id = "loginService" class="service.main.LoginService"/>
-	<bean id = "logInRepository" class="repository.LogInRepository"/>
-	
-	<bean id="mailService" class="controller.MailService" />
 	<bean class="controller.ajax.AjaxController"/>
 	
+	<bean id = "logInRepository" class="repository.LogInRepository"/>
 </beans>

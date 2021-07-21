@@ -28,6 +28,8 @@
 <bean class="service.goods.ReviewWriteService"/>
 <bean class="service.goods.GoodsReviewUpdateService"/>
 <bean class="service.goods.GoodsReviewsService"/>
+<bean class="service.goods.CartProdDeleteService"/>
+<bean class="service.goods.GoodsCartRemoveService"/>
 
 <!--오래 기다렸지?/ 불렀어? 그럼 컨트롤로 가자  -->
 

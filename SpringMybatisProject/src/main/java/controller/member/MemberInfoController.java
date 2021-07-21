@@ -18,8 +18,11 @@ public class MemberInfoController {
 	@Autowired
 	MemberListService memberListService;
 	@RequestMapping("memList")
- public String memList(Model model) {
-		memberListService.memList(model,null);
+ public String memList(
+		 @RequestParam(value="page",defaultValue = "1")//페이지를 날리지않아도 1값을 갖게된다.
+		 Integer page,
+		 Model model) {
+		memberListService.memList(model,null,page);
 	 return "member/memberList";
 	 
  }
@@ -34,7 +37,7 @@ public class MemberInfoController {
 	public String memInfo(
 			@PathVariable(value="memId")String memId,
 			Model model) {
-		memberListService.memList(model,memId);
+		memberListService.memList(model,memId,null);
 		return "member/memberInfo";
 		
 	}
@@ -49,7 +52,7 @@ public class MemberInfoController {
 	@RequestMapping("memMod/{memId}")
 	public String memMod(@PathVariable(value="memId")String memId,
 			Model model) {
-		memberListService.memList(model,memId);
+		memberListService.memList(model,memId,null);
 		return "member/memberModify";
 
 	}

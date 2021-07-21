@@ -15,9 +15,14 @@
 <form:form action="login" method="post" name="frm" 
 	modelAttribute="logInCommand">
 <table>
-	<tr><td colspan="3">아이디저장 | 자동로그인</td></tr>
+	<tr><td colspan="3">
+	아이디저장 <input type="checkbox" name="idStore"
+	<c:if test="${!empty isId }">checked</c:if>
+	/>
+	| 자동로그인<input type="checkbox" name="authLogin"/>	
+	</td></tr>
 	<tr><td>아이디</td>
-		<td><form:input path="userId" />
+		<td><form:input path="userId" value="${isId }"/>
 			<form:errors path="userId"  /> </td>
 		<td rowspan="2">
 		<input type="image" src="images/img1.jpg" width="100" alt="login"/>
@@ -28,7 +33,8 @@
 			<form:errors path="userPw"  />
 		</td></tr>
 	<tr><td colspan="3">
-		아이디/비밀번호 찾기 | 
+		<a href="search/idFind">아이디 찾기</a>/
+		<a href="search/findPassword">비밀번호 찾기</a> | 
 		<a href="register/agree">회원 가입</a>
 		</td></tr>
 </table>
@@ -45,10 +51,11 @@
 	</c:if>
 	<c:if test="${authInfo.grade != 1 }">
 	<!-- 관리자 -->
-	<a href="employee/mapage">마이페이지</a>
+	<a href="employee/empMyPage">마이페이지</a>
 	<a href="member/memList" >회원리스트</a>
 	<a href="emp/empList">직원 리스트</a>
 	<a href="goods/goodsList">상품리스트</a>
+	<a href="admin/noticeList">공지사항</a>
 	</c:if>
 	<a href="login/logOut">logOut</a>
 	

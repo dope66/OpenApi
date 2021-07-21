@@ -60,15 +60,17 @@ public class EmployeeController {
 		return "employee/employeeModify";
 	}
 	@RequestMapping("empInfo")
-	public String empInfo(@RequestParam(value="empId")String empId,
+	public String empInfo(@RequestParam(value="empId")String empId, 
 			Model model) {
 		employeeInfoService.empInfo(empId, model);
 		
 		return "employee/employeeInfo";
 	}
 	@RequestMapping(value = "empList", method = RequestMethod.GET)
-	public String empList(Model model) {
-		employeeListService.empList(model);
+	public String empList(Model model,
+			@RequestParam(value="page" ,defaultValue = "1") Integer page 
+			) {
+		employeeListService.empList(model,page);
 		return "employee/employeeList";
 	}
 	

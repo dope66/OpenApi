@@ -12,48 +12,44 @@ public class MemberRepository {
 	SqlSession sqlSession;
 	String namespace = "mappers.memberMapper";
 	String statement;
-
+	public String idFind(MemberDTO dto) {
+		statement = namespace + ".idFind";
+		return sqlSession.selectOne(statement, dto);
+	}
 	public int updateCkOk(MemberDTO dto) {
-		statement = namespace + ".updateCkOk";
+		statement = namespace +".updateCkOk";
 		return sqlSession.update(statement, dto);
 	}
-
 	public void memDelete(String memId) {
-		statement = namespace + ".memDelete";
+		statement = namespace +".memDelete";
 		sqlSession.delete(statement, memId);
 	}
-
 	public void memPwUpdate(MemberDTO dto) {
-		statement = namespace + ".memPwUpdate";
+		statement = namespace +".memPwUpdate";
 		sqlSession.update(statement, dto);
 	}
-
 	public MemberDTO memInfo(String memId) {
 		statement = namespace + ".memInfo";
 		return sqlSession.selectOne(statement, memId);
+	}	
+	public void memDel(String memId) {
+		statement = namespace +".memDel";
+		sqlSession.delete(statement, memId);
 	}
-
-	public List<MemberDTO> memList(String memId) {
-		statement = namespace + ".memlist";
-		return sqlSession.selectList(statement, memId);
-	}
-
-	public void memJoin(MemberDTO dto) {
-		statement = namespace + ".memJoin";
-		int i = sqlSession.insert(statement, dto);
-		System.out.println(i + "개가 저장되었습니다.");
-	}
-
 	public void memUpdate(MemberDTO dto) {
 		statement = namespace + ".memUpdate";
 		sqlSession.update(statement, dto);
-
 	}
-
-	public void memDel(String memId) {
-		statement = namespace + ".memDel";
-		sqlSession.delete(statement, memId);
-
+	public Integer getMemberCount() {
+		statement = namespace +".getMemberCount";
+		return sqlSession.selectOne(statement);
 	}
-
+	public List<MemberDTO> memList(MemberDTO dto) {
+		statement = namespace +".memList";
+		return sqlSession.selectList(statement,dto);
+	}
+	public void memJoin(MemberDTO dto) {
+		statement = namespace + ".memJoin";
+		sqlSession.insert(statement, dto);
+	}
 }

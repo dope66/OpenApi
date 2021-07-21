@@ -10,8 +10,27 @@ import model.EmployeeDTO;
 public class EmployeeRepository {
 	@Autowired
 	SqlSession sqlSession;
+	//session context에 있다 .
 	String namespace = "mappers.employeeMapper";
 	String statement;
+	public int count() {
+		statement=namespace+".count";
+		return sqlSession.selectOne(statement);
+	}
+	public void pwUpdate(EmployeeDTO dto)
+	{
+		statement=namespace+".pwUpdate";
+		sqlSession.update(statement,dto);
+	}
+	public void empModify(EmployeeDTO dto) {
+		statement=namespace+".empModify";
+		sqlSession.update(statement,dto);
+		
+	}
+	public EmployeeDTO empDetail(String empId) {
+		statement=namespace+".empDetail";
+		return sqlSession.selectOne(statement,empId);
+	}
 	public void empDelete(String empId) {
 		statement=namespace+".empDelete";
 		int i=sqlSession.delete(statement,empId);
@@ -29,9 +48,9 @@ public class EmployeeRepository {
 		statement=namespace+".empInfo";
 		return sqlSession.selectOne(statement,empId);
 	}
-	public List<EmployeeDTO> empList() {
+	public List<EmployeeDTO> empList(EmployeeDTO dto) {
 		statement=namespace+".empList";
-		return sqlSession.selectList(statement);
+		return sqlSession.selectList(statement,dto);
 		
 	}
 	public void empInsert(EmployeeDTO dto) {
