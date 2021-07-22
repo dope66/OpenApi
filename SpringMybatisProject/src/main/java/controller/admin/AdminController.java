@@ -53,7 +53,6 @@ public class AdminController {
 		return "notice/noticeModify";
 	}
 	
-	
 @RequestMapping("noticeDetail")
 public String noticeDetail(
 		@RequestParam(value="noticeNo")String noticeNo,
@@ -73,7 +72,7 @@ public String noticeDetail(
 	@RequestMapping("noticeForm")
 	public String noticeForm() {
 		
-		return "notice/noticeForm";
+		return "notice/noticeForm"; 
 		
 	}
 	@RequestMapping("noticeWrite")
@@ -82,5 +81,7 @@ public String noticeDetail(
 		noticeWriteService.noticeWrite(session, noticeCommand);
 		return "redirect:noticeList";
 	}
+	
+	
 	
 }

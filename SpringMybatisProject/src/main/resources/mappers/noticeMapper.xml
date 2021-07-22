@@ -6,9 +6,6 @@
 select count(*) from notice
 
 </select>
-
-
-
 <delete id="noticeDel" parameterType="string">
 		delete from notice
 		where notice_no = #{noticeNo}
@@ -56,4 +53,5 @@ where rn between #{startEndPageDTO.startRow}
 		values((<include refid="noticeNum"/>),#{noticeSub},
 		#{noticeCon},sysdate,#{noticeKind}, null, 0 ,#{employeeId})
 	</insert>
+	
 </mapper>

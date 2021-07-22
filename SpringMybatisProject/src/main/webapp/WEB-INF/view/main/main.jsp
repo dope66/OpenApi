@@ -56,6 +56,8 @@
 	<a href="emp/empList">직원 리스트</a>
 	<a href="goods/goodsList">상품리스트</a>
 	<a href="admin/noticeList">공지사항</a>
+	<a href="lib/libBoard">자료실</a>
+	<a href="admin/noticeList1">공지사항1</a>
 	</c:if>
 	<a href="login/logOut">logOut</a>
 	
