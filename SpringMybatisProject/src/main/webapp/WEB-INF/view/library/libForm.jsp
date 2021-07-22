@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="libWrite" method="post">
+	<form action="libWrite" method="post" enctype="multipart/form-data" >
 		<table border=1>
 			<tr>
 				<td>제목</td>
@@ -25,7 +25,9 @@
 			</tr>
 			<tr>
 				<td>파일</td>
-				<td></td>
+				<td>
+				<input type="file" name="noticeFile" multiple="multiple"/>
+				</td>
 
 			</tr>
 				<tr>
