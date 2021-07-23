@@ -48,7 +48,10 @@ notice_kind='자료실'
 
 <update id="libModify" parameterType="model.LibraryDTO">
 	update notice
-	set NOTICE_SUB=#{noticeSub}, NOTICE_CON=#{noticeCon}
+	set NOTICE_SUB=#{noticeSub}, NOTICE_CON=#{noticeCon},
+	notice_org_file =#{noticeOrgFile},
+	notice_file_size =#{noticeFileSize},
+	notice_file =#{noticeFile}
 	where NOTICE_NO=#{noticeNo} and NOTICE_KIND ='자료실'
 </update>
 <delete id="libDel" parameterType="string">

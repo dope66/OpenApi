@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" isELIgnored="false"%>\
+    pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ include file="../include/includeTags.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	글번호 : ${dto.noticeNo }<br />
+글번호 : ${dto.noticeNo }<br />
 	제목 : ${dto.noticeSub }<br />
 	내용 : ${dto.noticeCon }<br />
 	등록일 : ${dto.noticeDate }<br />

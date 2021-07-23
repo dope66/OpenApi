@@ -58,6 +58,8 @@
 	<a href="admin/noticeList">공지사항</a>
 	<a href="lib/libBoard">자료실</a>
 	<a href="admin/boardList">공지사항1</a>
+	
+	
 	</c:if>
 	<a href="login/logOut">logOut</a>
 	

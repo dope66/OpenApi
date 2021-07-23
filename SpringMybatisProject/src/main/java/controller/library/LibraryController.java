@@ -63,15 +63,17 @@ public class LibraryController {
 	}
 
 	@RequestMapping(value = "libModify", method = RequestMethod.POST)
-	public String libModify(LibraryCommand libraryCommand) {
-		libraryModifyService.libModify(libraryCommand);
+	public String libModify(LibraryCommand libraryCommand,
+			HttpSession sesssion) {
+		libraryModifyService.libModify(libraryCommand,sesssion);
 		return "redirect:libraryInfo?noticeNo=" + libraryCommand.getNoticeNo();
 	}
 	@RequestMapping("libDel")
 	public String libDel(
-			@RequestParam(value="noticeNo")String noticeNo
+			@RequestParam(value="noticeNo")String noticeNo,
+			HttpSession session
 			) {
-		libraryDeleteService.libDel(noticeNo);
+		libraryDeleteService.libDel(noticeNo,session);
 		return "redirect:libBoard";
 		
 	}
